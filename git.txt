@@ -1,0 +1,16 @@
+username ：sunyingchuan
+Email：1285424800@qq.com
+
+
+git branch -t test    创建分支
+git branch -d test   删除分支
+git add wenjian.txt
+git commit wenjian.txt
+git log
+git status
+git checkout
+git reset --hard HEAD^^
+git reset HEAD
+git push origin master
+git pull origin master
+git clone https://xx/xxxx/xxx
