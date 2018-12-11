@@ -14,7 +14,11 @@ git reset HEAD
 git push origin master
 git pull origin master
 git clone https://xx/xxxx/xxx
+
+git remote add origin https://github.com/sunyingchuan/teaDemo.git
 git push -u origin master
+git push -u origin master
+
 
 -----------------------------------------------------------------------------------------------------
 git分支的重要作用
