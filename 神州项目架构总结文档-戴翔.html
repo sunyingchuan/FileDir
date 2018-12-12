@@ -1,0 +1,733 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>神州项目架构总结.md</title><script type="text/javascript">
+//<![CDATA[
+window.__cfRocketOptions = {byc:0,p:0,petok:"09b45faf427906e3fb09e2f72d24c2a459436341-1524880407-1800"};
+//]]>
+</script>
+<script type="text/javascript" src="https://ajax.cloudflare.com/cdn-cgi/scripts/935cb224/cloudflare-static/rocket.min.js"></script>
+<style>@charset "UTF-8";@import 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha2/katex.min.css';code{color:#c7254e;background-color:#f9f2f4;border-radius:4px}code,kbd{padding:2px 4px}kbd{color:#fff;background-color:#333;border-radius:3px;box-shadow:inset 0 -1px 0 rgba(0,0,0,.25)}kbd kbd{padding:0;font-size:100%;box-shadow:none}pre{display:block;margin:0 0 10px;word-break:break-all;word-wrap:break-word;color:#333;background-color:#f5f5f5;border:1px solid #ccc;border-radius:4px}pre code{padding:0;font-size:inherit;color:inherit;white-space:pre-wrap;background-color:transparent;border-radius:0}.pre-scrollable{max-height:340px;overflow-y:scroll}table{background-color:transparent}th{text-align:left}.table{width:100%;max-width:100%;margin-bottom:20px}.table>thead>tr>th{padding:8px;line-height:1.4285714;border-top:1px solid #ddd}.table>thead>tr>td,.table>tbody>tr>th,.table>tbody>tr>td,.table>tfoot>tr>th,.table>tfoot>tr>td{padding:8px;line-height:1.4285714;vertical-align:top;border-top:1px solid #ddd}.table>thead>tr>th{vertical-align:bottom;border-bottom:2px solid #ddd}.table>caption+thead>tr:first-child>th,.table>caption+thead>tr:first-child>td,.table>colgroup+thead>tr:first-child>th,.table>colgroup+thead>tr:first-child>td,.table>thead:first-child>tr:first-child>th,.table>thead:first-child>tr:first-child>td{border-top:0}.table>tbody+tbody{border-top:2px solid #ddd}.table .table{background-color:#fff}.table-condensed>thead>tr>th,.table-condensed>thead>tr>td,.table-condensed>tbody>tr>th,.table-condensed>tbody>tr>td,.table-condensed>tfoot>tr>th,.table-condensed>tfoot>tr>td{padding:5px}.table-bordered,.table-bordered>thead>tr>th,.table-bordered>thead>tr>td,.table-bordered>tbody>tr>th,.table-bordered>tbody>tr>td,.table-bordered>tfoot>tr>th,.table-bordered>tfoot>tr>td{border:1px solid #ddd}.table-bordered>thead>tr>th,.table-bordered>thead>tr>td{border-bottom-width:2px}.table-striped>tbody>tr:nth-child(odd)>td,.table-striped>tbody>tr:nth-child(odd)>th{background-color:#f9f9f9}.table-hover>tbody>tr:hover>td,.table-hover>tbody>tr:hover>th{background-color:#f5f5f5}table col[class*="col-"]{position:static;float:none;display:table-column}table td[class*="col-"],table th[class*="col-"]{position:static;float:none;display:table-cell}.table>thead>tr>td.active,.table>thead>tr>th.active,.table>thead>tr.active>td,.table>thead>tr.active>th,.table>tbody>tr>td.active,.table>tbody>tr>th.active,.table>tbody>tr.active>td,.table>tbody>tr.active>th,.table>tfoot>tr>td.active,.table>tfoot>tr>th.active,.table>tfoot>tr.active>td,.table>tfoot>tr.active>th{background-color:#f5f5f5}.table-hover>tbody>tr>td.active:hover,.table-hover>tbody>tr>th.active:hover,.table-hover>tbody>tr.active:hover>td,.table-hover>tbody>tr:hover>.active,.table-hover>tbody>tr.active:hover>th{background-color:#e8e8e8}.table>thead>tr>td.success,.table>thead>tr>th.success,.table>thead>tr.success>td,.table>thead>tr.success>th,.table>tbody>tr>td.success,.table>tbody>tr>th.success,.table>tbody>tr.success>td,.table>tbody>tr.success>th,.table>tfoot>tr>td.success,.table>tfoot>tr>th.success,.table>tfoot>tr.success>td,.table>tfoot>tr.success>th{background-color:#dff0d8}.table-hover>tbody>tr>td.success:hover,.table-hover>tbody>tr>th.success:hover,.table-hover>tbody>tr.success:hover>td,.table-hover>tbody>tr:hover>.success,.table-hover>tbody>tr.success:hover>th{background-color:#d0e9c6}.table>thead>tr>td.info,.table>thead>tr>th.info,.table>thead>tr.info>td,.table>thead>tr.info>th,.table>tbody>tr>td.info,.table>tbody>tr>th.info,.table>tbody>tr.info>td,.table>tbody>tr.info>th,.table>tfoot>tr>td.info,.table>tfoot>tr>th.info,.table>tfoot>tr.info>td,.table>tfoot>tr.info>th{background-color:#d9edf7}.table-hover>tbody>tr>td.info:hover,.table-hover>tbody>tr>th.info:hover,.table-hover>tbody>tr.info:hover>td,.table-hover>tbody>tr:hover>.info,.table-hover>tbody>tr.info:hover>th{background-color:#c4e3f3}.table>thead>tr>td.warning,.table>thead>tr>th.warning,.table>thead>tr.warning>td,.table>thead>tr.warning>th,.table>tbody>tr>td.warning,.table>tbody>tr>th.warning,.table>tbody>tr.warning>td,.table>tbody>tr.warning>th,.table>tfoot>tr>td.warning,.table>tfoot>tr>th.warning,.table>tfoot>tr.warning>td,.table>tfoot>tr.warning>th{background-color:#fcf8e3}.table-hover>tbody>tr>td.warning:hover,.table-hover>tbody>tr>th.warning:hover,.table-hover>tbody>tr.warning:hover>td,.table-hover>tbody>tr:hover>.warning,.table-hover>tbody>tr.warning:hover>th{background-color:#faf2cc}.table>thead>tr>td.danger,.table>thead>tr>th.danger,.table>thead>tr.danger>td,.table>thead>tr.danger>th,.table>tbody>tr>td.danger,.table>tbody>tr>th.danger,.table>tbody>tr.danger>td,.table>tbody>tr.danger>th,.table>tfoot>tr>td.danger,.table>tfoot>tr>th.danger,.table>tfoot>tr.danger>td,.table>tfoot>tr.danger>th{background-color:#f2dede}.table-hover>tbody>tr>td.danger:hover,.table-hover>tbody>tr>th.danger:hover,.table-hover>tbody>tr.danger:hover>td,.table-hover>tbody>tr:hover>.danger,.table-hover>tbody>tr.danger:hover>th{background-color:#ebcccc}fieldset{border:0;min-width:0}legend{display:block;width:100%;margin-bottom:20px;font-size:21px;line-height:inherit;color:#333;border-bottom:1px solid #e5e5e5}label{display:inline-block;max-width:100%;margin-bottom:5px;font-weight:700}input[type="radio"],input[type="checkbox"]{margin:4px 0 0;margin-top:1px \9;line-height:normal}input[type="file"]{display:block}input[type="range"]{display:block;width:100%}select[multiple],select[size]{height:auto}input[type="file"]:focus,input[type="radio"]:focus,input[type="checkbox"]:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}output{padding-top:7px}output,.form-control{display:block;font-size:14px;line-height:1.4285714;color:#555}.form-control{width:100%;height:34px;padding:6px 12px;background-color:#fff;background-image:none;border:1px solid #ccc;border-radius:4px;box-shadow:inset 0 1px 1px rgba(0,0,0,.075);-webkit-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s}.form-control:focus{border-color:#66afe9;outline:0;box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)}.form-control::-moz-placeholder{color:#777;opacity:1}.form-control:-ms-input-placeholder{color:#777}.form-control::-webkit-input-placeholder{color:#777}.form-control[disabled],.form-control[readonly],fieldset[disabled] .form-control{cursor:not-allowed;background-color:#eee;opacity:1}textarea.form-control{height:auto}input[type="date"],input[type="time"],input[type="datetime-local"],input[type="month"]{line-height:34px;line-height:1.4285714 \0}input[type="date"].input-sm,.form-horizontal .form-group-sm input[type="date"].form-control,.input-group-sm>input[type="date"].form-control,.input-group-sm>input[type="date"].input-group-addon,.input-group-sm>.input-group-btn>input[type="date"].btn,input[type="time"].input-sm,.form-horizontal .form-group-sm input[type="time"].form-control,.input-group-sm>input[type="time"].form-control,.input-group-sm>input[type="time"].input-group-addon,.input-group-sm>.input-group-btn>input[type="time"].btn,input[type="datetime-local"].input-sm,.form-horizontal .form-group-sm input[type="datetime-local"].form-control,.input-group-sm>input[type="datetime-local"].form-control,.input-group-sm>input[type="datetime-local"].input-group-addon,.input-group-sm>.input-group-btn>input[type="datetime-local"].btn,input[type="month"].input-sm,.form-horizontal .form-group-sm input[type="month"].form-control,.input-group-sm>input[type="month"].form-control,.input-group-sm>input[type="month"].input-group-addon,.input-group-sm>.input-group-btn>input[type="month"].btn{line-height:30px}input[type="date"].input-lg,.form-horizontal .form-group-lg input[type="date"].form-control,.input-group-lg>input[type="date"].form-control,.input-group-lg>input[type="date"].input-group-addon,.input-group-lg>.input-group-btn>input[type="date"].btn,input[type="time"].input-lg,.form-horizontal .form-group-lg input[type="time"].form-control,.input-group-lg>input[type="time"].form-control,.input-group-lg>input[type="time"].input-group-addon,.input-group-lg>.input-group-btn>input[type="time"].btn,input[type="datetime-local"].input-lg,.form-horizontal .form-group-lg input[type="datetime-local"].form-control,.input-group-lg>input[type="datetime-local"].form-control,.input-group-lg>input[type="datetime-local"].input-group-addon,.input-group-lg>.input-group-btn>input[type="datetime-local"].btn,input[type="month"].input-lg,.form-horizontal .form-group-lg input[type="month"].form-control,.input-group-lg>input[type="month"].form-control,.input-group-lg>input[type="month"].input-group-addon,.input-group-lg>.input-group-btn>input[type="month"].btn{line-height:46px}.form-group{margin-bottom:15px}.radio,.checkbox{position:relative;display:block;min-height:20px;margin-top:10px;margin-bottom:10px}.radio label,.checkbox label{padding-left:20px;margin-bottom:0;font-weight:400;cursor:pointer}.radio input[type="radio"],.radio-inline input[type="radio"],.checkbox input[type="checkbox"],.checkbox-inline input[type="checkbox"]{position:absolute;margin-left:-20px;margin-top:4px \9}.radio+.radio,.checkbox+.checkbox{margin-top:-5px}.radio-inline,.checkbox-inline{display:inline-block;padding-left:20px;margin-bottom:0;vertical-align:middle;font-weight:400;cursor:pointer}.radio-inline+.radio-inline,.checkbox-inline+.checkbox-inline{margin-top:0;margin-left:10px}input[type="radio"][disabled],input[type="radio"].disabled,fieldset[disabled] input[type="radio"],input[type="checkbox"][disabled],input[type="checkbox"].disabled,fieldset[disabled] input[type="checkbox"],.radio-inline.disabled,fieldset[disabled] .radio-inline,.checkbox-inline.disabled,fieldset[disabled] .checkbox-inline,.radio.disabled label,fieldset[disabled] .radio label,.checkbox.disabled label,fieldset[disabled] .checkbox label{cursor:not-allowed}.form-control-static{padding-top:7px;padding-bottom:7px;margin-bottom:0}.form-control-static.input-lg,.form-horizontal .form-group-lg .form-control-static.form-control,.input-group-lg>.form-control-static.form-control,.input-group-lg>.form-control-static.input-group-addon,.input-group-lg>.input-group-btn>.form-control-static.btn,.form-control-static.input-sm,.form-horizontal .form-group-sm .form-control-static.form-control,.input-group-sm>.form-control-static.form-control,.input-group-sm>.form-control-static.input-group-addon,.input-group-sm>.input-group-btn>.form-control-static.btn{padding-left:0;padding-right:0}.input-sm,.form-horizontal .form-group-sm .form-control,.input-group-sm>.form-control{height:30px;padding:5px 10px;font-size:12px;line-height:1.5;border-radius:3px}.input-group-sm>.input-group-addon{height:30px;line-height:1.5}.input-group-sm>.input-group-btn>.btn{height:30px;padding:5px 10px;font-size:12px;line-height:1.5;border-radius:3px}select.input-sm,.form-horizontal .form-group-sm select.form-control,.input-group-sm>select.form-control,.input-group-sm>select.input-group-addon,.input-group-sm>.input-group-btn>select.btn{height:30px;line-height:30px}textarea.input-sm,.form-horizontal .form-group-sm textarea.form-control,.input-group-sm>textarea.form-control,.input-group-sm>textarea.input-group-addon,.input-group-sm>.input-group-btn>textarea.btn,select[multiple].input-sm,.form-horizontal .form-group-sm select[multiple].form-control,.input-group-sm>select[multiple].form-control,.input-group-sm>select[multiple].input-group-addon,.input-group-sm>.input-group-btn>select[multiple].btn{height:auto}.input-lg,.form-horizontal .form-group-lg .form-control,.input-group-lg>.form-control{height:46px;padding:10px 16px;font-size:18px;line-height:1.33;border-radius:6px}.input-group-lg>.input-group-addon{height:46px;line-height:1.33}.input-group-lg>.input-group-btn>.btn{height:46px;padding:10px 16px;font-size:18px;line-height:1.33;border-radius:6px}select.input-lg,.form-horizontal .form-group-lg select.form-control,.input-group-lg>select.form-control,.input-group-lg>select.input-group-addon,.input-group-lg>.input-group-btn>select.btn{height:46px;line-height:46px}textarea.input-lg,.form-horizontal .form-group-lg textarea.form-control,.input-group-lg>textarea.form-control,.input-group-lg>textarea.input-group-addon,.input-group-lg>.input-group-btn>textarea.btn,select[multiple].input-lg,.form-horizontal .form-group-lg select[multiple].form-control,.input-group-lg>select[multiple].form-control,.input-group-lg>select[multiple].input-group-addon,.input-group-lg>.input-group-btn>select[multiple].btn{height:auto}.has-feedback{position:relative}.has-feedback .form-control{padding-right:42.5px}.form-control-feedback{position:absolute;top:25px;right:0;z-index:2;display:block;width:34px;height:34px;line-height:34px;text-align:center}.input-lg+.form-control-feedback,.form-horizontal .form-group-lg .form-control+.form-control-feedback,.input-group-lg>.form-control+.form-control-feedback,.input-group-lg>.input-group-addon+.form-control-feedback,.input-group-lg>.input-group-btn>.btn+.form-control-feedback{width:46px;height:46px;line-height:46px}.input-sm+.form-control-feedback,.form-horizontal .form-group-sm .form-control+.form-control-feedback,.input-group-sm>.form-control+.form-control-feedback,.input-group-sm>.input-group-addon+.form-control-feedback,.input-group-sm>.input-group-btn>.btn+.form-control-feedback{width:30px;height:30px;line-height:30px}.has-success .help-block,.has-success .control-label,.has-success .radio,.has-success .checkbox,.has-success .radio-inline,.has-success .checkbox-inline{color:#3c763d}.has-success .form-control{border-color:#3c763d;box-shadow:inset 0 1px 1px rgba(0,0,0,.075)}.has-success .form-control:focus{border-color:#2b542c;box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #67b168}.has-success .input-group-addon{color:#3c763d;border-color:#3c763d;background-color:#dff0d8}.has-success .form-control-feedback{color:#3c763d}.has-warning .help-block,.has-warning .control-label,.has-warning .radio,.has-warning .checkbox,.has-warning .radio-inline,.has-warning .checkbox-inline{color:#8a6d3b}.has-warning .form-control{border-color:#8a6d3b;box-shadow:inset 0 1px 1px rgba(0,0,0,.075)}.has-warning .form-control:focus{border-color:#66512c;box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #c0a16b}.has-warning .input-group-addon{color:#8a6d3b;border-color:#8a6d3b;background-color:#fcf8e3}.has-warning .form-control-feedback{color:#8a6d3b}.has-error .help-block,.has-error .control-label,.has-error .radio,.has-error .checkbox,.has-error .radio-inline,.has-error .checkbox-inline{color:#a94442}.has-error .form-control{border-color:#a94442;box-shadow:inset 0 1px 1px rgba(0,0,0,.075)}.has-error .form-control:focus{border-color:#843534;box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #ce8483}.has-error .input-group-addon{color:#a94442;border-color:#a94442;background-color:#f2dede}.has-error .form-control-feedback{color:#a94442}.has-feedback label.sr-only~.form-control-feedback{top:0}.help-block{display:block;margin-top:5px;margin-bottom:10px;color:#737373}.form-horizontal .radio,.form-horizontal .checkbox,.form-horizontal .radio-inline,.form-horizontal .checkbox-inline{margin-top:0;margin-bottom:0;padding-top:7px}.form-horizontal .radio,.form-horizontal .checkbox{min-height:27px}.form-horizontal .form-group{margin-left:-15px;margin-right:-15px}.form-horizontal .form-group:before{content:" ";display:table}.form-horizontal .form-group:after{content:" ";display:table;clear:both}.form-horizontal .has-feedback .form-control-feedback{top:0;right:15px}.btn{display:inline-block;vertical-align:middle;cursor:pointer;background-image:none;border:1px solid transparent;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.btn:focus,.btn:active:focus,.btn.active:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}.btn:hover,.btn:focus{color:#333;text-decoration:none}.btn:active,.btn.active{outline:0;background-image:none;box-shadow:inset 0 3px 5px rgba(0,0,0,.125)}.btn.disabled,.btn[disabled],fieldset[disabled] .btn{cursor:not-allowed;pointer-events:none;opacity:.65;filter:alpha(opacity=65);box-shadow:none}.btn-default{color:#333;background-color:#fff;border-color:#ccc}.btn-default:hover,.btn-default:focus,.btn-default:active,.btn-default.active,.open>.btn-default.dropdown-toggle{color:#333;background-color:#e6e6e6;border-color:#adadad}.btn-default:active,.btn-default.active,.open>.btn-default.dropdown-toggle{background-image:none}.btn-default.disabled,.btn-default.disabled:hover,.btn-default.disabled:focus,.btn-default.disabled:active,.btn-default.disabled.active,.btn-default[disabled],.btn-default[disabled]:hover,.btn-default[disabled]:focus,.btn-default[disabled]:active,.btn-default[disabled].active,fieldset[disabled] .btn-default,fieldset[disabled] .btn-default:hover,fieldset[disabled] .btn-default:focus,fieldset[disabled] .btn-default:active,fieldset[disabled] .btn-default.active{background-color:#fff;border-color:#ccc}.btn-default .badge{color:#fff;background-color:#333}.btn-primary{color:#fff;background-color:#428bca;border-color:#357ebd}.btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.open>.btn-primary.dropdown-toggle{color:#fff;background-color:#3071a9;border-color:#285e8e}.btn-primary:active,.btn-primary.active,.open>.btn-primary.dropdown-toggle{background-image:none}.btn-primary.disabled,.btn-primary.disabled:hover,.btn-primary.disabled:focus,.btn-primary.disabled:active,.btn-primary.disabled.active,.btn-primary[disabled],.btn-primary[disabled]:hover,.btn-primary[disabled]:focus,.btn-primary[disabled]:active,.btn-primary[disabled].active,fieldset[disabled] .btn-primary,fieldset[disabled] .btn-primary:hover,fieldset[disabled] .btn-primary:focus,fieldset[disabled] .btn-primary:active,fieldset[disabled] .btn-primary.active{background-color:#428bca;border-color:#357ebd}.btn-primary .badge{color:#428bca;background-color:#fff}.btn-success{color:#fff;background-color:#5cb85c;border-color:#4cae4c}.btn-success:hover,.btn-success:focus,.btn-success:active,.btn-success.active,.open>.btn-success.dropdown-toggle{color:#fff;background-color:#449d44;border-color:#398439}.btn-success:active,.btn-success.active,.open>.btn-success.dropdown-toggle{background-image:none}.btn-success.disabled,.btn-success.disabled:hover,.btn-success.disabled:focus,.btn-success.disabled:active,.btn-success.disabled.active,.btn-success[disabled],.btn-success[disabled]:hover,.btn-success[disabled]:focus,.btn-success[disabled]:active,.btn-success[disabled].active,fieldset[disabled] .btn-success,fieldset[disabled] .btn-success:hover,fieldset[disabled] .btn-success:focus,fieldset[disabled] .btn-success:active,fieldset[disabled] .btn-success.active{background-color:#5cb85c;border-color:#4cae4c}.btn-success .badge{color:#5cb85c;background-color:#fff}.btn-info{color:#fff;background-color:#5bc0de;border-color:#46b8da}.btn-info:hover,.btn-info:focus,.btn-info:active,.btn-info.active,.open>.btn-info.dropdown-toggle{color:#fff;background-color:#31b0d5;border-color:#269abc}.btn-info:active,.btn-info.active,.open>.btn-info.dropdown-toggle{background-image:none}.btn-info.disabled,.btn-info.disabled:hover,.btn-info.disabled:focus,.btn-info.disabled:active,.btn-info.disabled.active,.btn-info[disabled],.btn-info[disabled]:hover,.btn-info[disabled]:focus,.btn-info[disabled]:active,.btn-info[disabled].active,fieldset[disabled] .btn-info,fieldset[disabled] .btn-info:hover,fieldset[disabled] .btn-info:focus,fieldset[disabled] .btn-info:active,fieldset[disabled] .btn-info.active{background-color:#5bc0de;border-color:#46b8da}.btn-info .badge{color:#5bc0de;background-color:#fff}.btn-warning{color:#fff;background-color:#f0ad4e;border-color:#eea236}.btn-warning:hover,.btn-warning:focus,.btn-warning:active,.btn-warning.active,.open>.btn-warning.dropdown-toggle{color:#fff;background-color:#ec971f;border-color:#d58512}.btn-warning:active,.btn-warning.active,.open>.btn-warning.dropdown-toggle{background-image:none}.btn-warning.disabled,.btn-warning.disabled:hover,.btn-warning.disabled:focus,.btn-warning.disabled:active,.btn-warning.disabled.active,.btn-warning[disabled],.btn-warning[disabled]:hover,.btn-warning[disabled]:focus,.btn-warning[disabled]:active,.btn-warning[disabled].active,fieldset[disabled] .btn-warning,fieldset[disabled] .btn-warning:hover,fieldset[disabled] .btn-warning:focus,fieldset[disabled] .btn-warning:active,fieldset[disabled] .btn-warning.active{background-color:#f0ad4e;border-color:#eea236}.btn-warning .badge{color:#f0ad4e;background-color:#fff}.btn-danger{color:#fff;background-color:#d9534f;border-color:#d43f3a}.btn-danger:hover,.btn-danger:focus,.btn-danger:active,.btn-danger.active,.open>.btn-danger.dropdown-toggle{color:#fff;background-color:#c9302c;border-color:#ac2925}.btn-danger:active,.btn-danger.active,.open>.btn-danger.dropdown-toggle{background-image:none}.btn-danger.disabled,.btn-danger.disabled:hover,.btn-danger.disabled:focus,.btn-danger.disabled:active,.btn-danger.disabled.active,.btn-danger[disabled],.btn-danger[disabled]:hover,.btn-danger[disabled]:focus,.btn-danger[disabled]:active,.btn-danger[disabled].active,fieldset[disabled] .btn-danger,fieldset[disabled] .btn-danger:hover,fieldset[disabled] .btn-danger:focus,fieldset[disabled] .btn-danger:active,fieldset[disabled] .btn-danger.active{background-color:#d9534f;border-color:#d43f3a}.btn-danger .badge{color:#d9534f;background-color:#fff}.btn-link{color:#428bca;font-weight:400;cursor:pointer;border-radius:0}.btn-link,.btn-link:active,.btn-link[disabled],fieldset[disabled] .btn-link{background-color:transparent;box-shadow:none}.btn-link,.btn-link:hover,.btn-link:focus,.btn-link:active{border-color:transparent}.btn-link:hover,.btn-link:focus{color:#2a6496;text-decoration:underline;background-color:transparent}.btn-link[disabled]:hover,.btn-link[disabled]:focus,fieldset[disabled] .btn-link:hover,fieldset[disabled] .btn-link:focus{color:#777;text-decoration:none}.btn-lg{padding:10px 16px;font-size:18px;line-height:1.33;border-radius:6px}.btn-sm{padding:5px 10px}.btn-sm,.btn-xs{font-size:12px;line-height:1.5;border-radius:3px}.btn-xs{padding:1px 5px}.btn-block{display:block;width:100%}.btn-block+.btn-block{margin-top:5px}input[type="submit"].btn-block,input[type="reset"].btn-block,input[type="button"].btn-block{width:100%}.fade{opacity:0;-webkit-transition:opacity .15s linear;transition:opacity .15s linear}.fade.in{opacity:1}.collapse{display:none}.collapse.in{display:block}tr.collapse.in{display:table-row}tbody.collapse.in{display:table-row-group}.collapsing{position:relative;height:0;overflow:hidden;-webkit-transition:height .35s ease;transition:height .35s ease}.input-group{position:relative;display:table;border-collapse:separate}.input-group[class*="col-"]{float:none;padding-left:0;padding-right:0}.input-group .form-control{position:relative;z-index:2;float:left;width:100%;margin-bottom:0}.input-group-addon,.input-group-btn,.input-group .form-control{display:table-cell}.input-group-addon:not(:first-child):not(:last-child),.input-group-btn:not(:first-child):not(:last-child),.input-group .form-control:not(:first-child):not(:last-child){border-radius:0}.input-group-addon{white-space:nowrap}.input-group-addon,.input-group-btn{width:1%;vertical-align:middle}.input-group-addon{padding:6px 12px;font-size:14px;font-weight:400;line-height:1;color:#555;text-align:center;background-color:#eee;border:1px solid #ccc;border-radius:4px}.input-group-addon.input-sm,.form-horizontal .form-group-sm .input-group-addon.form-control,.input-group-sm>.input-group-addon,.input-group-sm>.input-group-btn>.input-group-addon.btn{padding:5px 10px;font-size:12px;border-radius:3px}.input-group-addon.input-lg,.form-horizontal .form-group-lg .input-group-addon.form-control,.input-group-lg>.input-group-addon,.input-group-lg>.input-group-btn>.input-group-addon.btn{padding:10px 16px;font-size:18px;border-radius:6px}.input-group-addon input[type="radio"],.input-group-addon input[type="checkbox"]{margin-top:0}.input-group .form-control:first-child,.input-group-addon:first-child,.input-group-btn:first-child>.btn,.input-group-btn:first-child>.btn-group>.btn,.input-group-btn:first-child>.dropdown-toggle,.input-group-btn:last-child>.btn:not(:last-child):not(.dropdown-toggle),.input-group-btn:last-child>.btn-group:not(:last-child)>.btn{border-bottom-right-radius:0;border-top-right-radius:0}.input-group-addon:first-child{border-right:0}.input-group .form-control:last-child,.input-group-addon:last-child,.input-group-btn:last-child>.btn,.input-group-btn:last-child>.btn-group>.btn,.input-group-btn:last-child>.dropdown-toggle,.input-group-btn:first-child>.btn:not(:first-child),.input-group-btn:first-child>.btn-group:not(:first-child)>.btn{border-bottom-left-radius:0;border-top-left-radius:0}.input-group-addon:last-child{border-left:0}.input-group-btn{font-size:0;white-space:nowrap}.input-group-btn,.input-group-btn>.btn{position:relative}.input-group-btn>.btn+.btn{margin-left:-1px}.input-group-btn>.btn:hover,.input-group-btn>.btn:focus,.input-group-btn>.btn:active{z-index:2}.input-group-btn:first-child>.btn,.input-group-btn:first-child>.btn-group{margin-right:-1px}.input-group-btn:last-child>.btn,.input-group-btn:last-child>.btn-group{margin-left:-1px}.pagination{display:inline-block;padding-left:0;margin:20px 0;border-radius:4px}.pagination>li{display:inline}.pagination>li>a,.pagination>li>span{position:relative;float:left;padding:6px 12px;line-height:1.4285714;text-decoration:none;color:#428bca;background-color:#fff;border:1px solid #ddd;margin-left:-1px}.pagination>li:first-child>a,.pagination>li:first-child>span{margin-left:0;border-bottom-left-radius:4px;border-top-left-radius:4px}.pagination>li:last-child>a,.pagination>li:last-child>span{border-bottom-right-radius:4px;border-top-right-radius:4px}.pagination>li>a:hover,.pagination>li>a:focus,.pagination>li>span:hover,.pagination>li>span:focus{color:#2a6496;background-color:#eee;border-color:#ddd}.pagination>.active>a,.pagination>.active>a:hover,.pagination>.active>a:focus,.pagination>.active>span,.pagination>.active>span:hover,.pagination>.active>span:focus{z-index:2;color:#fff;background-color:#428bca;border-color:#428bca;cursor:default}.pagination>.disabled>span,.pagination>.disabled>span:hover,.pagination>.disabled>span:focus,.pagination>.disabled>a,.pagination>.disabled>a:hover,.pagination>.disabled>a:focus{color:#777;background-color:#fff;border-color:#ddd;cursor:not-allowed}.pagination-lg>li>a,.pagination-lg>li>span{padding:10px 16px;font-size:18px}.pagination-lg>li:first-child>a,.pagination-lg>li:first-child>span{border-bottom-left-radius:6px;border-top-left-radius:6px}.pagination-lg>li:last-child>a,.pagination-lg>li:last-child>span{border-bottom-right-radius:6px;border-top-right-radius:6px}.pagination-sm>li>a,.pagination-sm>li>span{padding:5px 10px;font-size:12px}.pagination-sm>li:first-child>a,.pagination-sm>li:first-child>span{border-bottom-left-radius:3px;border-top-left-radius:3px}.pagination-sm>li:last-child>a,.pagination-sm>li:last-child>span{border-bottom-right-radius:3px;border-top-right-radius:3px}.close{float:right;font-size:21px;font-weight:700;line-height:1;color:#000;text-shadow:0 1px 0 #fff;opacity:.2;filter:alpha(opacity=20)}.close:hover,.close:focus{color:#000;text-decoration:none;cursor:pointer;opacity:.5;filter:alpha(opacity=50)}button.close{padding:0;cursor:pointer;background:0 0;border:0;-webkit-appearance:none}.modal-open,.modal{overflow:hidden}.modal{display:none;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0}.modal.fade .modal-dialog{-webkit-transform:translate3d(0,-25%,0);transform:translate3d(0,-25%,0);-webkit-transition:-webkit-transform .3s ease-out;transition:transform .3s ease-out;transition:transform .3s ease-out,-webkit-transform .3s ease-out}.modal.in .modal-dialog{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}.modal-open .modal{overflow-x:hidden;overflow-y:auto}.modal-dialog{position:relative;width:auto;margin:10px}.modal-content{position:relative;background-color:#fff;border:1px solid #999;border:1px solid rgba(0,0,0,.2);border-radius:6px;box-shadow:0 3px 9px rgba(0,0,0,.5);background-clip:padding-box;outline:0}.modal-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1040;background-color:#000}.modal-backdrop.fade{opacity:0;filter:alpha(opacity=0)}.modal-backdrop.in{opacity:.5;filter:alpha(opacity=50)}.modal-header{padding:15px;border-bottom:1px solid #e5e5e5;min-height:16.4285714px}.modal-header .close{margin-top:-2px}.modal-title{margin:0;line-height:1.4285714}.modal-body{position:relative;padding:15px}.modal-footer{padding:15px;text-align:right;border-top:1px solid #e5e5e5}.modal-footer:before,.modal-footer:after{content:" ";display:table}.modal-footer:after{clear:both}.modal-footer .btn+.btn{margin-left:5px;margin-bottom:0}.modal-footer .btn-group .btn+.btn{margin-left:-1px}.modal-footer .btn-block+.btn-block{margin-left:0}.modal-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}.clearfix:before,.clearfix:after{content:" ";display:table}.clearfix:after{clear:both}.center-block{display:block;margin-left:auto;margin-right:auto}.pull-right{float:right!important}.pull-left{float:left!important}.hide{display:none!important}.show{display:block!important}.invisible{visibility:hidden}.text-hide{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0}.hidden{display:none!important;visibility:hidden!important}.affix{position:fixed;-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}.hljs{display:block;overflow-x:auto;padding:.5em;background:#002b36;color:#839496;-webkit-text-size-adjust:none}.hljs-comment,.hljs-template_comment,.diff .hljs-header,.hljs-doctype,.hljs-pi,.lisp .hljs-string,.hljs-javadoc{color:#586e75}.hljs-keyword,.hljs-winutils,.method,.hljs-addition,.css .hljs-tag,.hljs-request,.hljs-status,.nginx .hljs-title{color:#859900}.hljs-number,.hljs-command,.hljs-string,.hljs-tag .hljs-value,.hljs-rules .hljs-value,.hljs-phpdoc,.hljs-dartdoc,.tex .hljs-formula,.hljs-regexp,.hljs-hexcolor,.hljs-link_url{color:#2aa198}.hljs-title,.hljs-localvars,.hljs-chunk,.hljs-decorator,.hljs-built_in,.hljs-identifier,.vhdl .hljs-literal,.hljs-id,.css .hljs-function{color:#268bd2}.hljs-attribute,.hljs-variable,.lisp .hljs-body,.smalltalk .hljs-number,.hljs-constant,.hljs-class .hljs-title,.hljs-parent,.hljs-type,.hljs-link_reference{color:#b58900}.hljs-preprocessor,.hljs-preprocessor .hljs-keyword,.hljs-pragma,.hljs-shebang,.hljs-symbol,.hljs-symbol .hljs-string,.diff .hljs-change,.hljs-special,.hljs-attr_selector,.hljs-subst,.hljs-cdata,.css .hljs-pseudo,.hljs-header{color:#cb4b16}.hljs-deletion,.hljs-important{color:#dc322f}.hljs-link_label{color:#6c71c4}.tex .hljs-formula{background:#073642}*,*:before,*:after{box-sizing:border-box}html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background:0 0}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}h1{margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}images{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{box-sizing:content-box;height:0}pre{overflow:auto}code,kbd{font-size:1em}code,kbd,pre,samp{font-family:monospace,monospace}samp{font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{height:auto}input[type="search"]{-webkit-appearance:textfield;box-sizing:content-box}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}.debug{background-color:#ffc0cb!important}.ellipsis{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ir{background-color:transparent;border:0;overflow:hidden}.ir::before{content:'';display:block;height:150%;width:0}html{font-size:.875em;background:#fff;color:#373D49}html,body{font-family:Georgia,Cambria,serif;height:100%}body{font-size:1rem;font-weight:400;line-height:2rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}li{-webkit-font-feature-settings:'kern' 1,'onum' 1,'liga' 1;font-feature-settings:'kern' 1,'onum' 1,'liga' 1;margin-left:1rem}li>ul,li>ol{margin-bottom:0}p{padding-top:.66001rem;-webkit-font-feature-settings:'kern' 1,'onum' 1,'liga' 1;font-feature-settings:'kern' 1,'onum' 1,'liga' 1;margin-top:0}p,pre{margin-bottom:1.33999rem}pre{font-size:1rem;padding:.66001rem 9.5px 9.5px;line-height:2rem;background:-webkit-linear-gradient(top,#fff 0,#fff .75rem,#f5f7fa .75rem,#f5f7fa 2.75rem,#fff 2.75rem,#fff 4rem);background:linear-gradient(to bottom,#fff 0,#fff .75rem,#f5f7fa .75rem,#f5f7fa 2.75rem,#fff 2.75rem,#fff 4rem);background-size:100% 4rem;border-color:#D3DAEA}blockquote{margin:0}blockquote p{font-size:1rem;margin-bottom:.33999rem;font-style:italic;padding:.66001rem 1rem 1rem;border-left:3px solid #A0AABF}th,td{padding:12px}h1,h2,h3,h4,h5,h6{font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-font-feature-settings:'dlig' 1,'liga' 1,'lnum' 1,'kern' 1;font-feature-settings:'dlig' 1,'liga' 1,'lnum' 1,'kern' 1;font-style:normal;font-weight:600;margin-top:0}h1{line-height:3rem;font-size:2.0571429rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.1835837rem;padding-top:.8164163rem}h2,h3{line-height:3rem}h3{font-size:1.6457143rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}a{cursor:pointer;color:#35D7BB;text-decoration:none}a:hover,a:focus{border-bottom-color:#35D7BB;color:#dff9f4}img{height:auto;max-width:100%}.g{display:block}.g:after{clear:both;content:'';display:table}.g-b{float:left;margin:0;width:100%}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--center{display:block;float:none;margin:0 auto}.g-b--right{float:right}.g-b--1of1{width:100%}.g-b--1of2,.g-b--2of4,.g-b--3of6,.g-b--4of8,.g-b--5of10,.g-b--6of12{width:50%}.g-b--1of3,.g-b--2of6,.g-b--4of12{width:33.333%}.g-b--2of3,.g-b--4of6,.g-b--8of12{width:66.666%}.g-b--1of4,.g-b--2of8,.g-b--3of12{width:25%}.g-b--3of4,.g-b--6of8,.g-b--9of12{width:75%}.g-b--1of5,.g-b--2of10{width:20%}.g-b--2of5,.g-b--4of10{width:40%}.g-b--3of5,.g-b--6of10{width:60%}.g-b--4of5,.g-b--8of10{width:80%}.g-b--1of6,.g-b--2of12{width:16.666%}.g-b--5of6,.g-b--10of12{width:83.333%}.g-b--1of8{width:12.5%}.g-b--3of8{width:37.5%}.g-b--5of8{width:62.5%}.g-b--7of8{width:87.5%}.g-b--1of10{width:10%}.g-b--3of10{width:30%}.g-b--7of10{width:70%}.g-b--9of10{width:90%}.g-b--1of12{width:8.333%}.g-b--5of12{width:41.666%}.g-b--7of12{width:58.333%}.g-b--11of12{width:91.666%}.g-b--push--1of1{margin-left:100%}.g-b--push--1of2,.g-b--push--2of4,.g-b--push--3of6,.g-b--push--4of8,.g-b--push--5of10,.g-b--push--6of12{margin-left:50%}.g-b--push--1of3,.g-b--push--2of6,.g-b--push--4of12{margin-left:33.333%}.g-b--push--2of3,.g-b--push--4of6,.g-b--push--8of12{margin-left:66.666%}.g-b--push--1of4,.g-b--push--2of8,.g-b--push--3of12{margin-left:25%}.g-b--push--3of4,.g-b--push--6of8,.g-b--push--9of12{margin-left:75%}.g-b--push--1of5,.g-b--push--2of10{margin-left:20%}.g-b--push--2of5,.g-b--push--4of10{margin-left:40%}.g-b--push--3of5,.g-b--push--6of10{margin-left:60%}.g-b--push--4of5,.g-b--push--8of10{margin-left:80%}.g-b--push--1of6,.g-b--push--2of12{margin-left:16.666%}.g-b--push--5of6,.g-b--push--10of12{margin-left:83.333%}.g-b--push--1of8{margin-left:12.5%}.g-b--push--3of8{margin-left:37.5%}.g-b--push--5of8{margin-left:62.5%}.g-b--push--7of8{margin-left:87.5%}.g-b--push--1of10{margin-left:10%}.g-b--push--3of10{margin-left:30%}.g-b--push--7of10{margin-left:70%}.g-b--push--9of10{margin-left:90%}.g-b--push--1of12{margin-left:8.333%}.g-b--push--5of12{margin-left:41.666%}.g-b--push--7of12{margin-left:58.333%}.g-b--push--11of12{margin-left:91.666%}.g-b--pull--1of1{margin-right:100%}.g-b--pull--1of2,.g-b--pull--2of4,.g-b--pull--3of6,.g-b--pull--4of8,.g-b--pull--5of10,.g-b--pull--6of12{margin-right:50%}.g-b--pull--1of3,.g-b--pull--2of6,.g-b--pull--4of12{margin-right:33.333%}.g-b--pull--2of3,.g-b--pull--4of6,.g-b--pull--8of12{margin-right:66.666%}.g-b--pull--1of4,.g-b--pull--2of8,.g-b--pull--3of12{margin-right:25%}.g-b--pull--3of4,.g-b--pull--6of8,.g-b--pull--9of12{margin-right:75%}.g-b--pull--1of5,.g-b--pull--2of10{margin-right:20%}.g-b--pull--2of5,.g-b--pull--4of10{margin-right:40%}.g-b--pull--3of5,.g-b--pull--6of10{margin-right:60%}.g-b--pull--4of5,.g-b--pull--8of10{margin-right:80%}.g-b--pull--1of6,.g-b--pull--2of12{margin-right:16.666%}.g-b--pull--5of6,.g-b--pull--10of12{margin-right:83.333%}.g-b--pull--1of8{margin-right:12.5%}.g-b--pull--3of8{margin-right:37.5%}.g-b--pull--5of8{margin-right:62.5%}.g-b--pull--7of8{margin-right:87.5%}.g-b--pull--1of10{margin-right:10%}.g-b--pull--3of10{margin-right:30%}.g-b--pull--7of10{margin-right:70%}.g-b--pull--9of10{margin-right:90%}.g-b--pull--1of12{margin-right:8.333%}.g-b--pull--5of12{margin-right:41.666%}.g-b--pull--7of12{margin-right:58.333%}.g-b--pull--11of12{margin-right:91.666%}.splashscreen{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#373D49;z-index:22}.splashscreen-dillinger{width:260px;height:auto;display:block;margin:0 auto;padding-bottom:3rem}.splashscreen p{font-size:1.25rem;padding-top:.56251rem;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;text-align:center;max-width:500px;margin:0 auto;color:#FFF}.sp-center{position:relative;-webkit-transform:translateY(-50%);transform:translateY(-50%);top:50%}.open-menu>.wrapper{overflow-x:hidden}.page{margin:0 auto;position:relative;top:0;left:0;width:100%;height:100%;z-index:2;-webkit-transition:all .25s ease-in-out;transition:all .25s ease-in-out;background-color:#fff;padding-top:51px;will-change:left}.open-menu .page{left:270px}.title{line-height:1rem;font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem;font-weight:500;color:#A0AABF;letter-spacing:1px;text-transform:uppercase;padding-left:16px;padding-right:16px;margin-top:1rem}.split-preview .title{padding-left:0}.title-document{line-height:1rem;font-size:1.25rem;margin-bottom:.89999rem;padding-top:.10001rem;font-weight:400;font-family:"Ubuntu Mono",Monaco;color:#373D49;padding-left:16px;padding-right:16px;width:80%;min-width:300px;outline:0;border:none}.icon{display:block;margin:0 auto;width:36px;height:36px;border-radius:3px;text-align:center}.icon svg{display:inline-block;margin-left:auto;margin-right:auto}.icon-preview{background-color:#373D49;line-height:40px}.icon-preview svg{width:19px;height:12px}.icon-settings{background-color:#373D49;line-height:44px}.icon-settings svg{width:18px;height:18px}.icon-link{width:16px;height:16px;line-height:1;margin-right:24px;text-align:right}.navbar{background-color:#373D49;height:51px;width:100%;position:fixed;top:0;left:0;z-index:6;-webkit-transition:all .25s ease-in-out;transition:all .25s ease-in-out;will-change:left}.navbar:after{content:"";display:table;clear:both}.open-menu .navbar{left:270px}.navbar-brand{float:left;margin:0 0 0 24px;padding:0;line-height:42px}.navbar-brand svg{width:85px;height:11px}.nav-left{float:left}.nav-right{float:right}.nav-sidebar{width:100%}.menu{list-style:none;margin:0;padding:0}.menu a{border:0;color:#A0AABF;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;outline:none;text-transform:uppercase}.menu a:hover{color:#35D7BB}.menu .menu-item{border:0;display:none;float:left;margin:0;position:relative}.menu .menu-item>a{display:block;font-size:12px;height:51px;letter-spacing:1px;line-height:51px;padding:0 24px}.menu .menu-item--settings,.menu .menu-item--preview,.menu .menu-item--save-to.in-sidebar,.menu .menu-item--import-from.in-sidebar,.menu .menu-item--link-unlink.in-sidebar,.menu .menu-item--documents.in-sidebar{display:block}.menu .menu-item--documents{padding-bottom:1rem}.menu .menu-item.open>a{background-color:#1D212A}.menu .menu-item-icon>a{height:auto;padding:0}.menu .menu-item-icon:hover>a{background-color:transparent}.menu .menu-link.open i{background-color:#1D212A}.menu .menu-link.open g{fill:#35D7BB}.menu .menu-link-preview,.menu .menu-link-settings{margin-top:8px;width:51px}.menu-sidebar{width:100%}.menu-sidebar .menu-item{float:none;margin-bottom:1px;width:100%}.menu-sidebar .menu-item.open>a{background-color:#373D49}.menu-sidebar .open .caret{-webkit-transform:rotate(180deg);transform:rotate(180deg)}.menu-sidebar>.menu-item:hover .dropdown a,.menu-sidebar>.menu-item:hover .settings a{background-color:transparent}.menu-sidebar .menu-link{background-color:#373D49;font-weight:600}.menu-sidebar .menu-link:after{content:"";display:table;clear:both}.menu-sidebar .menu-link>span{float:left}.menu-sidebar .menu-link>.caret{float:right;text-align:right;top:22px}.menu-sidebar .dropdown,.menu-sidebar .settings{background-color:transparent;position:static;width:100%}.dropdown{position:absolute;right:0;top:51px;width:188px}.dropdown,.settings{display:none;background-color:#1D212A}.dropdown{padding:0}.dropdown,.settings,.sidebar-list{list-style:none;margin:0}.sidebar-list{padding:0}.dropdown li{margin:32px 0;padding:0 0 0 32px}.dropdown li,.settings li{line-height:1}.sidebar-list li{line-height:1;margin:32px 0;padding:0 0 0 32px}.dropdown a{color:#D0D6E2}.dropdown a,.settings a,.sidebar-list a{display:block;text-transform:none}.sidebar-list a{color:#D0D6E2}.dropdown a:after,.settings a:after,.sidebar-list a:after{content:"";display:table;clear:both}.dropdown .icon,.settings .icon,.sidebar-list .icon{float:right}.open .dropdown,.open .settings,.open .sidebar-list{display:block}.open .dropdown.collapse,.open .collapse.settings,.open .sidebar-list.collapse{display:none}.open .dropdown.collapse.in,.open .collapse.in.settings,.open .sidebar-list.collapse.in{display:block}.dropdown .unlinked .icon,.settings .unlinked .icon,.sidebar-list .unlinked .icon{opacity:.3}.dropdown.documents li,.documents.settings li,.sidebar-list.documents li{background-image:url("../img/icons/file.svg");background-position:240px center;background-repeat:no-repeat;background-size:14px 16px;padding:3px 32px}.dropdown.documents li.octocat,.documents.settings li.octocat,.sidebar-list.documents li.octocat{background-image:url("../img/icons/octocat.svg");background-position:234px center;background-size:24px 24px}.dropdown.documents li:last-child,.documents.settings li:last-child,.sidebar-list.documents li:last-child{margin-bottom:1rem}.dropdown.documents li.active a,.documents.settings li.active a,.sidebar-list.documents li.active a{color:#35D7BB}.settings{position:fixed;top:67px;right:16px;border-radius:3px;width:288px;background-color:#373D49;padding:16px;z-index:7}.show-settings .settings{display:block}.settings .has-checkbox{float:left}.settings a{font-size:1.25rem;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;line-height:28px;color:#D0D6E2}.settings a:after{content:"";display:table;clear:both}.settings a:hover{color:#35D7BB}.settings li{border-bottom:1px solid #4F535B;margin:0;padding:16px 0}.settings li:last-child{border-bottom:none}.brand{border:none;display:block}.brand:hover g{fill:#35D7BB}.toggle{display:block;float:left;height:16px;padding:25px 16px 26px;width:40px}.toggle span:after,.toggle span:before{content:'';left:0;position:absolute;top:-6px}.toggle span:after{top:6px}.toggle span{display:block;position:relative}.toggle span,.toggle span:after,.toggle span:before{-webkit-backface-visibility:hidden;backface-visibility:hidden;background-color:#D3DAEA;height:2px;-webkit-transition:all .3s;transition:all .3s;width:20px}.open-menu .toggle span{background-color:transparent}.open-menu .toggle span:before{-webkit-transform:rotate(45deg) translate(3px,3px);transform:rotate(45deg) translate(3px,3px)}.open-menu .toggle span:after{-webkit-transform:rotate(-45deg) translate(5px,-6px);transform:rotate(-45deg) translate(5px,-6px)}.caret{display:inline-block;width:0;height:0;margin-left:6px;vertical-align:middle;position:relative;top:-1px;border-top:4px solid;border-right:4px solid transparent;border-left:4px solid transparent}.sidebar{overflow:auto;height:100%;padding-right:15px;padding-bottom:15px;width:285px}.sidebar-wrapper{-webkit-overflow-scrolling:touch;background-color:#2B2F36;left:0;height:100%;overflow-y:hidden;position:fixed;top:0;width:285px;z-index:1}.sidebar-branding{width:160px;padding:0;margin:16px auto}.header{border-bottom:1px solid #E8E8E8;position:relative}.words,.characters{line-height:1rem;font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem;font-weight:500;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;color:#A0AABF;letter-spacing:1px;text-transform:uppercase;z-index:5;position:absolute;right:16px;top:0}.words span,.characters span{color:#000}.words+.characters{top:22px}.btn{text-align:center;display:inline-block;width:100%;text-transform:uppercase;font-weight:600;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;text-shadow:0 1px 0 #1b8b77;padding:16px 24px;background-color:#35D7BB;border-radius:3px;margin:0 auto 16px;line-height:1;color:#fff;-webkit-transition:all .15s linear;transition:all .15s linear;-webkit-font-smoothing:antialiased}.btn--new,.btn--save{display:block;width:238px}.btn--new:hover,.btn--new:focus,.btn--save:hover,.btn--save:focus{color:#fff;border-bottom-color:transparent;box-shadow:0 1px 3px #24b59c;text-shadow:0 1px 0 #24b59c}.btn--save{background-color:#4A5261;text-shadow:0 1px 1px #1e2127}.btn--save:hover,.btn--save:focus{color:#fff;border-bottom-color:transparent;box-shadow:0 1px 5px #08090a;text-shadow:none}.btn--delete{display:block;width:238px;background-color:transparent;font-size:12px;text-shadow:none}.btn--delete:hover,.btn--delete:focus{color:#fff;border-bottom-color:transparent;text-shadow:0 1px 0 #08090a;opacity:.8}.btn--delete-modal,.btn--ok,.btn--close{border-top:0;background-color:#4A5261;text-shadow:0 1px 0 #08090a;margin:0}.btn--delete-modal:hover,.btn--delete-modal:focus,.btn--ok:hover,.btn--ok:focus,.btn--close:hover,.btn--close:focus{color:#fff;background-color:#292d36;text-shadow:none}.btn--delete-modal{display:inline;width:auto}.overlay{position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(55,61,73,.8);-webkit-transition:all .25s ease-in-out;transition:all .25s ease-in-out;-webkit-transition-timing-function:ease-out;transition-timing-function:ease-out;will-change:left,opacity,visibility;z-index:5;opacity:0;visibility:hidden}.show-settings .overlay{visibility:visible;opacity:1}.switch{float:right;line-height:1}.switch input{display:none}.switch small{display:inline-block;cursor:pointer;padding:0 24px 0 0;-webkit-transition:all ease .2s;transition:all ease .2s;background-color:#2B2F36;border-color:#2B2F36}.switch small,.switch small:before{border-radius:30px;box-shadow:inset 0 0 2px 0 #14171F}.switch small:before{display:block;content:'';width:28px;height:28px;background:#fff}.switch.checked small{padding-right:0;padding-left:24px;background-color:#35D7BB;box-shadow:none}.modal--dillinger.about .modal-dialog{font-size:1.25rem;max-width:500px}.modal--dillinger.scope .modal-dialog{max-width:300px;margin:5rem auto}.modal--dillinger .modal-dialog{max-width:600px;width:auto;margin:5rem auto}.modal--dillinger .modal-content{background:#373D49;border-radius:3px;box-shadow:0 2px 5px 0 #2C3B59;color:#fff;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;padding:2rem}.modal--dillinger ul{list-style-type:disc;margin:1rem 0;padding:0 0 0 1rem}.modal--dillinger li{padding:0;margin:0}.modal--dillinger .modal-header{border:0;padding:0}.modal--dillinger .modal-body{padding:0}.modal--dillinger .modal-footer{border:0;padding:0}.modal--dillinger .close{color:#fff;opacity:1}.modal-backdrop{background-color:#373D49}.pagination--dillinger{padding:0!important;margin:1.5rem 0!important;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-ms-flex-line-pack:stretch;align-content:stretch}.pagination--dillinger,.pagination--dillinger li{display:-webkit-box;display:-ms-flexbox;display:flex}.pagination--dillinger li{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;text-align:center}.pagination--dillinger li:first-child>a,.pagination--dillinger li.disabled>a,.pagination--dillinger li.disabled>a:hover,.pagination--dillinger li.disabled>a:focus,.pagination--dillinger li>a{background-color:transparent;border-color:#4F535B;border-right-color:transparent}.pagination--dillinger li.active>a,.pagination--dillinger li.active>a:hover,.pagination--dillinger li.active>a:focus{border-color:#4A5261;background-color:#4A5261;color:#fff}.pagination--dillinger li>a{float:none;color:#fff;width:100%;display:block;text-align:center;margin:0;border-right-color:transparent;padding:6px}.pagination--dillinger li>a:hover,.pagination--dillinger li>a:focus{border-color:#35D7BB;background-color:#35D7BB;color:#fff}.pagination--dillinger li:last-child a{border-color:#4F535B}.pagination--dillinger li:first-child a{border-right-color:transparent}.diNotify{position:absolute;z-index:9999;left:0;right:0;top:0;margin:0 auto;max-width:400px;text-align:center;-webkit-transition:top .5s ease-in-out,opacity .5s ease-in-out;transition:top .5s ease-in-out,opacity .5s ease-in-out;visibility:hidden}.diNotify-body{-webkit-font-smoothing:antialiased;background-color:#35D7BB;background:#666E7F;border-radius:3px;color:#fff;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;overflow:hidden;padding:1rem 2rem .5rem;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:baseline;-ms-flex-align:baseline;align-items:baseline;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.diNotify-icon{display:block;width:16px;height:16px;line-height:16px;position:relative;top:3px}.diNotify-message{padding-left:1rem}.zen-wrapper{position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;z-index:10;background-color:#FFF;opacity:0;-webkit-transition:opacity .25s ease-in-out;transition:opacity .25s ease-in-out}.zen-wrapper.on{opacity:1}.enter-zen-mode{background-image:url("../img/icons/enter-zen.svg");right:.5rem;top:.313rem;display:none}.enter-zen-mode,.close-zen-mode{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;background-repeat:no-repeat;width:32px;height:32px;display:block;position:absolute}.close-zen-mode{background-image:url("../img/icons/exit-zen.svg");right:1rem;top:1rem}.zen-page{position:relative;top:0;bottom:0;z-index:11;height:100%;width:100%}#zen{font-size:1.25rem;width:300px;height:80%;margin:0 auto;position:relative;top:10%}#zen:before,#zen:after{content:"";position:absolute;height:10%;width:100%;z-index:12;pointer-events:none}#preview .table{width:auto}.ui-resizable{position:relative}.ui-resizable-handle{position:absolute;font-size:.1px;z-index:99999;display:block}.ui-resizable-e{background-color:#666;border-right:8px solid #e8e8e8;border-left:1px solid #222;width:10px;z-index:88!important;position:relative}.ui-resizable-e:after{content:"-";display:block;position:absolute;top:calc(50% - 16px);left:0;height:25px;width:2px;background-color:rgba(0,0,0,.4);margin:3px}#editor{cursor:ew-resize;position:relative;z-index:auto}.profile-pic{float:left;width:250px}#_default_ a::before{color:#A0AABF}#_default_ img{display:none}#_default_ #_default_{display:block;float:left;max-width:38%;word-wrap:break-word}#_default_ .default-ad{display:none}#_default_ ._default_{display:block}#_default_ a{color:#35d7bb;text-decoration:none}#_default_ a:hover{color:#8ae8d8}#_default_ .default-image{display:none}#_default_ .default-title:after{content:" — "}#_default_ .default-title,#_default_ .default-description{display:inline}#_default_ .default-title{position:relative;font-weight:600;display:none}#_default_ a:before{position:relative;top:0;padding:5px;color:#a0aabf;content:"Ad";text-transform:uppercase;font-size:8px;font-family:Verdana,sans-serif}#_default_{display:block;float:left;max-width:38%;word-wrap:break-word}#_default_ ._default_{display:block;font-size:.75rem;height:51px;letter-spacing:1px;line-height:1rem;padding:18px 24px}.split{overflow:scroll;padding:0!important}.split-editor{padding-left:0;padding-right:0;position:relative;z-index:3}.show-preview .split-editor{display:none}.split-preview{background-color:#fff;display:none;top:0;position:relative;z-index:4}.show-preview .split-preview{display:block}#editor{font-size:1rem;font-family:"Ubuntu Mono",Monaco;font-weight:400;line-height:2rem;width:100%;height:100%}#editor .ace_gutter{-webkit-font-smoothing:antialiased}.editor-header{width:50%;float:left;border-bottom:1px solid #E8E8E8;position:relative}.editor-header--first{border-right:1px solid #E8E8E8}.editor-header .title{display:inline-block}.preview-html{padding:15px}.preview-html a{color:#A0AABF;text-decoration:underline}.preview-src{white-space:normal}.preview-mode-toggle-src{background-image:url("../img/icons/code.svg")}.preview-mode-toggle-src,.preview-mode-toggle-html{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;background-repeat:no-repeat;width:32px;height:32px;display:block;position:absolute;right:.5rem;top:.5rem;display:none}.preview-mode-toggle-html{background-image:url("../img/icons/eye.svg")}.sr-only{visibility:hidden;text-overflow:110%;overflow:hidden;top:-100px;position:absolute}.mnone{margin:0!important}@media screen and (min-width:27.5em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571429rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.1835837rem;padding-top:.8164163rem}h3{font-size:1.6457143rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--m1of1{width:100%}.g-b--m1of2,.g-b--m2of4,.g-b--m3of6,.g-b--m4of8,.g-b--m5of10,.g-b--m6of12{width:50%}.g-b--m1of3,.g-b--m2of6,.g-b--m4of12{width:33.333%}.g-b--m2of3,.g-b--m4of6,.g-b--m8of12{width:66.666%}.g-b--m1of4,.g-b--m2of8,.g-b--m3of12{width:25%}.g-b--m3of4,.g-b--m6of8,.g-b--m9of12{width:75%}.g-b--m1of5,.g-b--m2of10{width:20%}.g-b--m2of5,.g-b--m4of10{width:40%}.g-b--m3of5,.g-b--m6of10{width:60%}.g-b--m4of5,.g-b--m8of10{width:80%}.g-b--m1of6,.g-b--m2of12{width:16.666%}.g-b--m5of6,.g-b--m10of12{width:83.333%}.g-b--m1of8{width:12.5%}.g-b--m3of8{width:37.5%}.g-b--m5of8{width:62.5%}.g-b--m7of8{width:87.5%}.g-b--m1of10{width:10%}.g-b--m3of10{width:30%}.g-b--m7of10{width:70%}.g-b--m9of10{width:90%}.g-b--m1of12{width:8.333%}.g-b--m5of12{width:41.666%}.g-b--m7of12{width:58.333%}.g-b--m11of12{width:91.666%}.g-b--push--m1of1{margin-left:100%}.g-b--push--m1of2,.g-b--push--m2of4,.g-b--push--m3of6,.g-b--push--m4of8,.g-b--push--m5of10,.g-b--push--m6of12{margin-left:50%}.g-b--push--m1of3,.g-b--push--m2of6,.g-b--push--m4of12{margin-left:33.333%}.g-b--push--m2of3,.g-b--push--m4of6,.g-b--push--m8of12{margin-left:66.666%}.g-b--push--m1of4,.g-b--push--m2of8,.g-b--push--m3of12{margin-left:25%}.g-b--push--m3of4,.g-b--push--m6of8,.g-b--push--m9of12{margin-left:75%}.g-b--push--m1of5,.g-b--push--m2of10{margin-left:20%}.g-b--push--m2of5,.g-b--push--m4of10{margin-left:40%}.g-b--push--m3of5,.g-b--push--m6of10{margin-left:60%}.g-b--push--m4of5,.g-b--push--m8of10{margin-left:80%}.g-b--push--m1of6,.g-b--push--m2of12{margin-left:16.666%}.g-b--push--m5of6,.g-b--push--m10of12{margin-left:83.333%}.g-b--push--m1of8{margin-left:12.5%}.g-b--push--m3of8{margin-left:37.5%}.g-b--push--m5of8{margin-left:62.5%}.g-b--push--m7of8{margin-left:87.5%}.g-b--push--m1of10{margin-left:10%}.g-b--push--m3of10{margin-left:30%}.g-b--push--m7of10{margin-left:70%}.g-b--push--m9of10{margin-left:90%}.g-b--push--m1of12{margin-left:8.333%}.g-b--push--m5of12{margin-left:41.666%}.g-b--push--m7of12{margin-left:58.333%}.g-b--push--m11of12{margin-left:91.666%}.g-b--pull--m1of1{margin-right:100%}.g-b--pull--m1of2,.g-b--pull--m2of4,.g-b--pull--m3of6,.g-b--pull--m4of8,.g-b--pull--m5of10,.g-b--pull--m6of12{margin-right:50%}.g-b--pull--m1of3,.g-b--pull--m2of6,.g-b--pull--m4of12{margin-right:33.333%}.g-b--pull--m2of3,.g-b--pull--m4of6,.g-b--pull--m8of12{margin-right:66.666%}.g-b--pull--m1of4,.g-b--pull--m2of8,.g-b--pull--m3of12{margin-right:25%}.g-b--pull--m3of4,.g-b--pull--m6of8,.g-b--pull--m9of12{margin-right:75%}.g-b--pull--m1of5,.g-b--pull--m2of10{margin-right:20%}.g-b--pull--m2of5,.g-b--pull--m4of10{margin-right:40%}.g-b--pull--m3of5,.g-b--pull--m6of10{margin-right:60%}.g-b--pull--m4of5,.g-b--pull--m8of10{margin-right:80%}.g-b--pull--m1of6,.g-b--pull--m2of12{margin-right:16.666%}.g-b--pull--m5of6,.g-b--pull--m10of12{margin-right:83.333%}.g-b--pull--m1of8{margin-right:12.5%}.g-b--pull--m3of8{margin-right:37.5%}.g-b--pull--m5of8{margin-right:62.5%}.g-b--pull--m7of8{margin-right:87.5%}.g-b--pull--m1of10{margin-right:10%}.g-b--pull--m3of10{margin-right:30%}.g-b--pull--m7of10{margin-right:70%}.g-b--pull--m9of10{margin-right:90%}.g-b--pull--m1of12{margin-right:8.333%}.g-b--pull--m5of12{margin-right:41.666%}.g-b--pull--m7of12{margin-right:58.333%}.g-b--pull--m11of12{margin-right:91.666%}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{margin-bottom:.89999rem;padding-top:.10001rem}.title-document,.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog,#zen{font-size:1.25rem}#zen{width:400px}#editor{font-size:1rem}}@media screen and (min-width:46.25em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571429rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.1835837rem;padding-top:.8164163rem}h3{font-size:1.6457143rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--t1of1{width:100%}.g-b--t1of2,.g-b--t2of4,.g-b--t3of6,.g-b--t4of8,.g-b--t5of10,.g-b--t6of12{width:50%}.g-b--t1of3,.g-b--t2of6,.g-b--t4of12{width:33.333%}.g-b--t2of3,.g-b--t4of6,.g-b--t8of12{width:66.666%}.g-b--t1of4,.g-b--t2of8,.g-b--t3of12{width:25%}.g-b--t3of4,.g-b--t6of8,.g-b--t9of12{width:75%}.g-b--t1of5,.g-b--t2of10{width:20%}.g-b--t2of5,.g-b--t4of10{width:40%}.g-b--t3of5,.g-b--t6of10{width:60%}.g-b--t4of5,.g-b--t8of10{width:80%}.g-b--t1of6,.g-b--t2of12{width:16.666%}.g-b--t5of6,.g-b--t10of12{width:83.333%}.g-b--t1of8{width:12.5%}.g-b--t3of8{width:37.5%}.g-b--t5of8{width:62.5%}.g-b--t7of8{width:87.5%}.g-b--t1of10{width:10%}.g-b--t3of10{width:30%}.g-b--t7of10{width:70%}.g-b--t9of10{width:90%}.g-b--t1of12{width:8.333%}.g-b--t5of12{width:41.666%}.g-b--t7of12{width:58.333%}.g-b--t11of12{width:91.666%}.g-b--push--t1of1{margin-left:100%}.g-b--push--t1of2,.g-b--push--t2of4,.g-b--push--t3of6,.g-b--push--t4of8,.g-b--push--t5of10,.g-b--push--t6of12{margin-left:50%}.g-b--push--t1of3,.g-b--push--t2of6,.g-b--push--t4of12{margin-left:33.333%}.g-b--push--t2of3,.g-b--push--t4of6,.g-b--push--t8of12{margin-left:66.666%}.g-b--push--t1of4,.g-b--push--t2of8,.g-b--push--t3of12{margin-left:25%}.g-b--push--t3of4,.g-b--push--t6of8,.g-b--push--t9of12{margin-left:75%}.g-b--push--t1of5,.g-b--push--t2of10{margin-left:20%}.g-b--push--t2of5,.g-b--push--t4of10{margin-left:40%}.g-b--push--t3of5,.g-b--push--t6of10{margin-left:60%}.g-b--push--t4of5,.g-b--push--t8of10{margin-left:80%}.g-b--push--t1of6,.g-b--push--t2of12{margin-left:16.666%}.g-b--push--t5of6,.g-b--push--t10of12{margin-left:83.333%}.g-b--push--t1of8{margin-left:12.5%}.g-b--push--t3of8{margin-left:37.5%}.g-b--push--t5of8{margin-left:62.5%}.g-b--push--t7of8{margin-left:87.5%}.g-b--push--t1of10{margin-left:10%}.g-b--push--t3of10{margin-left:30%}.g-b--push--t7of10{margin-left:70%}.g-b--push--t9of10{margin-left:90%}.g-b--push--t1of12{margin-left:8.333%}.g-b--push--t5of12{margin-left:41.666%}.g-b--push--t7of12{margin-left:58.333%}.g-b--push--t11of12{margin-left:91.666%}.g-b--pull--t1of1{margin-right:100%}.g-b--pull--t1of2,.g-b--pull--t2of4,.g-b--pull--t3of6,.g-b--pull--t4of8,.g-b--pull--t5of10,.g-b--pull--t6of12{margin-right:50%}.g-b--pull--t1of3,.g-b--pull--t2of6,.g-b--pull--t4of12{margin-right:33.333%}.g-b--pull--t2of3,.g-b--pull--t4of6,.g-b--pull--t8of12{margin-right:66.666%}.g-b--pull--t1of4,.g-b--pull--t2of8,.g-b--pull--t3of12{margin-right:25%}.g-b--pull--t3of4,.g-b--pull--t6of8,.g-b--pull--t9of12{margin-right:75%}.g-b--pull--t1of5,.g-b--pull--t2of10{margin-right:20%}.g-b--pull--t2of5,.g-b--pull--t4of10{margin-right:40%}.g-b--pull--t3of5,.g-b--pull--t6of10{margin-right:60%}.g-b--pull--t4of5,.g-b--pull--t8of10{margin-right:80%}.g-b--pull--t1of6,.g-b--pull--t2of12{margin-right:16.666%}.g-b--pull--t5of6,.g-b--pull--t10of12{margin-right:83.333%}.g-b--pull--t1of8{margin-right:12.5%}.g-b--pull--t3of8{margin-right:37.5%}.g-b--pull--t5of8{margin-right:62.5%}.g-b--pull--t7of8{margin-right:87.5%}.g-b--pull--t1of10{margin-right:10%}.g-b--pull--t3of10{margin-right:30%}.g-b--pull--t7of10{margin-right:70%}.g-b--pull--t9of10{margin-right:90%}.g-b--pull--t1of12{margin-right:8.333%}.g-b--pull--t5of12{margin-right:41.666%}.g-b--pull--t7of12{margin-right:58.333%}.g-b--pull--t11of12{margin-right:91.666%}.splashscreen-dillinger{width:500px}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{font-size:1.25rem;margin-bottom:.89999rem;padding-top:.10001rem}.menu .menu-item--save-to,.menu .menu-item--import-from{display:block}.menu .menu-item--preview,.menu .menu-item--save-to.in-sidebar,.menu .menu-item--import-from.in-sidebar{display:none}.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog{font-size:1.25rem}.enter-zen-mode{display:block}.close-zen-mode{right:3rem;top:3rem}#zen{font-size:1.25rem;width:500px}.split-editor{border-right:1px solid #E8E8E8;float:left;height:calc(100vh - 172px);-webkit-overflow-scrolling:touch;padding-right:16px;width:50%}.show-preview .split-editor{display:block}.split-preview{display:block;float:right;height:calc(100vh - 172px);-webkit-overflow-scrolling:touch;position:relative;top:0;width:50%}#editor{font-size:1rem}.preview-mode-toggle-src,.preview-mode-toggle-html{display:block}}@media screen and (min-width:62.5em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571429rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.1835837rem;padding-top:.8164163rem}h3{font-size:1.6457143rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--d1of1{width:100%}.g-b--d1of2,.g-b--d2of4,.g-b--d3of6,.g-b--d4of8,.g-b--d5of10,.g-b--d6of12{width:50%}.g-b--d1of3,.g-b--d2of6,.g-b--d4of12{width:33.333%}.g-b--d2of3,.g-b--d4of6,.g-b--d8of12{width:66.666%}.g-b--d1of4,.g-b--d2of8,.g-b--d3of12{width:25%}.g-b--d3of4,.g-b--d6of8,.g-b--d9of12{width:75%}.g-b--d1of5,.g-b--d2of10{width:20%}.g-b--d2of5,.g-b--d4of10{width:40%}.g-b--d3of5,.g-b--d6of10{width:60%}.g-b--d4of5,.g-b--d8of10{width:80%}.g-b--d1of6,.g-b--d2of12{width:16.666%}.g-b--d5of6,.g-b--d10of12{width:83.333%}.g-b--d1of8{width:12.5%}.g-b--d3of8{width:37.5%}.g-b--d5of8{width:62.5%}.g-b--d7of8{width:87.5%}.g-b--d1of10{width:10%}.g-b--d3of10{width:30%}.g-b--d7of10{width:70%}.g-b--d9of10{width:90%}.g-b--d1of12{width:8.333%}.g-b--d5of12{width:41.666%}.g-b--d7of12{width:58.333%}.g-b--d11of12{width:91.666%}.g-b--push--d1of1{margin-left:100%}.g-b--push--d1of2,.g-b--push--d2of4,.g-b--push--d3of6,.g-b--push--d4of8,.g-b--push--d5of10,.g-b--push--d6of12{margin-left:50%}.g-b--push--d1of3,.g-b--push--d2of6,.g-b--push--d4of12{margin-left:33.333%}.g-b--push--d2of3,.g-b--push--d4of6,.g-b--push--d8of12{margin-left:66.666%}.g-b--push--d1of4,.g-b--push--d2of8,.g-b--push--d3of12{margin-left:25%}.g-b--push--d3of4,.g-b--push--d6of8,.g-b--push--d9of12{margin-left:75%}.g-b--push--d1of5,.g-b--push--d2of10{margin-left:20%}.g-b--push--d2of5,.g-b--push--d4of10{margin-left:40%}.g-b--push--d3of5,.g-b--push--d6of10{margin-left:60%}.g-b--push--d4of5,.g-b--push--d8of10{margin-left:80%}.g-b--push--d1of6,.g-b--push--d2of12{margin-left:16.666%}.g-b--push--d5of6,.g-b--push--d10of12{margin-left:83.333%}.g-b--push--d1of8{margin-left:12.5%}.g-b--push--d3of8{margin-left:37.5%}.g-b--push--d5of8{margin-left:62.5%}.g-b--push--d7of8{margin-left:87.5%}.g-b--push--d1of10{margin-left:10%}.g-b--push--d3of10{margin-left:30%}.g-b--push--d7of10{margin-left:70%}.g-b--push--d9of10{margin-left:90%}.g-b--push--d1of12{margin-left:8.333%}.g-b--push--d5of12{margin-left:41.666%}.g-b--push--d7of12{margin-left:58.333%}.g-b--push--d11of12{margin-left:91.666%}.g-b--pull--d1of1{margin-right:100%}.g-b--pull--d1of2,.g-b--pull--d2of4,.g-b--pull--d3of6,.g-b--pull--d4of8,.g-b--pull--d5of10,.g-b--pull--d6of12{margin-right:50%}.g-b--pull--d1of3,.g-b--pull--d2of6,.g-b--pull--d4of12{margin-right:33.333%}.g-b--pull--d2of3,.g-b--pull--d4of6,.g-b--pull--d8of12{margin-right:66.666%}.g-b--pull--d1of4,.g-b--pull--d2of8,.g-b--pull--d3of12{margin-right:25%}.g-b--pull--d3of4,.g-b--pull--d6of8,.g-b--pull--d9of12{margin-right:75%}.g-b--pull--d1of5,.g-b--pull--d2of10{margin-right:20%}.g-b--pull--d2of5,.g-b--pull--d4of10{margin-right:40%}.g-b--pull--d3of5,.g-b--pull--d6of10{margin-right:60%}.g-b--pull--d4of5,.g-b--pull--d8of10{margin-right:80%}.g-b--pull--d1of6,.g-b--pull--d2of12{margin-right:16.666%}.g-b--pull--d5of6,.g-b--pull--d10of12{margin-right:83.333%}.g-b--pull--d1of8{margin-right:12.5%}.g-b--pull--d3of8{margin-right:37.5%}.g-b--pull--d5of8{margin-right:62.5%}.g-b--pull--d7of8{margin-right:87.5%}.g-b--pull--d1of10{margin-right:10%}.g-b--pull--d3of10{margin-right:30%}.g-b--pull--d7of10{margin-right:70%}.g-b--pull--d9of10{margin-right:90%}.g-b--pull--d1of12{margin-right:8.333%}.g-b--pull--d5of12{margin-right:41.666%}.g-b--pull--d7of12{margin-right:58.333%}.g-b--pull--d11of12{margin-right:91.666%}.splashscreen-dillinger{width:700px}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{font-size:1.25rem;margin-bottom:.89999rem;padding-top:.10001rem}.menu .menu-item--export-as{display:block}.menu .menu-item--preview{display:none}.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog,#zen{font-size:1.25rem}#zen{width:700px}#editor{font-size:1rem}}@media screen and (min-width:87.5em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571429rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.1835837rem;padding-top:.8164163rem}h3{font-size:1.6457143rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.splashscreen-dillinger{width:800px}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{margin-bottom:.89999rem;padding-top:.10001rem}.title-document,.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog,#zen{font-size:1.25rem}#editor{font-size:1rem}}@media (min-width:768px){.form-inline .form-group{display:inline-block;margin-bottom:0;vertical-align:middle}.form-inline .form-control{display:inline-block;width:auto;vertical-align:middle}.form-inline .input-group{display:inline-table;vertical-align:middle}.form-inline .input-group .input-group-addon,.form-inline .input-group .input-group-btn,.form-inline .input-group .form-control{width:auto}.form-inline .input-group>.form-control{width:100%}.form-inline .control-label{margin-bottom:0;vertical-align:middle}.form-inline .radio,.form-inline .checkbox{display:inline-block;margin-top:0;margin-bottom:0;vertical-align:middle}.form-inline .radio label,.form-inline .checkbox label{padding-left:0}.form-inline .radio input[type="radio"],.form-inline .checkbox input[type="checkbox"]{position:relative;margin-left:0}.form-inline .has-feedback .form-control-feedback{top:0}.form-horizontal .control-label{text-align:right;margin-bottom:0;padding-top:7px}.form-horizontal .form-group-lg .control-label{padding-top:14.3px}.form-horizontal .form-group-sm .control-label{padding-top:6px}.modal-dialog{width:600px;margin:30px auto}.modal-content{box-shadow:0 5px 15px rgba(0,0,0,.5)}.modal-sm{width:300px}}@media (min-width:992px){.modal-lg{width:900px}}@media screen and (max-width:1200px){#_default_{max-width:30%}#_default_ ._default_{font-size:.825rem;line-height:.875rem;padding:12px 12px 6px 24px;text-align:justify}}@media screen and (max-width:1100px){#_default_{max-width:27%}#_default_ ._default_{font-size:.8rem;line-height:.85rem;padding:12px 6px 6px 24px;text-align:justify}}@media screen and (max-width:1000px){#_default_{max-width:24%}#_default_ ._default_{font-size:.775rem;line-height:.8rem;padding:12px 6px 6px 24px;text-align:justify}}@media screen and (max-width:900px){#_default_{max-width:30%}}@media screen and (max-width:767px){.table-responsive{width:100%;margin-bottom:15px;overflow-y:hidden;overflow-x:auto;-ms-overflow-style:-ms-autohiding-scrollbar;border:1px solid #ddd;-webkit-overflow-scrolling:touch}.table-responsive>.table{margin-bottom:0}.table-responsive>.table>thead>tr>th,.table-responsive>.table>thead>tr>td,.table-responsive>.table>tbody>tr>th,.table-responsive>.table>tbody>tr>td,.table-responsive>.table>tfoot>tr>th,.table-responsive>.table>tfoot>tr>td{white-space:nowrap}.table-responsive>.table-bordered{border:0}.table-responsive>.table-bordered>thead>tr>th:first-child,.table-responsive>.table-bordered>thead>tr>td:first-child,.table-responsive>.table-bordered>tbody>tr>th:first-child,.table-responsive>.table-bordered>tbody>tr>td:first-child,.table-responsive>.table-bordered>tfoot>tr>th:first-child,.table-responsive>.table-bordered>tfoot>tr>td:first-child{border-left:0}.table-responsive>.table-bordered>thead>tr>th:last-child,.table-responsive>.table-bordered>thead>tr>td:last-child,.table-responsive>.table-bordered>tbody>tr>th:last-child,.table-responsive>.table-bordered>tbody>tr>td:last-child,.table-responsive>.table-bordered>tfoot>tr>th:last-child,.table-responsive>.table-bordered>tfoot>tr>td:last-child{border-right:0}.table-responsive>.table-bordered>tbody>tr:last-child>th,.table-responsive>.table-bordered>tbody>tr:last-child>td,.table-responsive>.table-bordered>tfoot>tr:last-child>th,.table-responsive>.table-bordered>tfoot>tr:last-child>td{border-bottom:0}}@media screen and (max-width:720px){#_default_{max-width:60%}#_default_ ._default_{font-size:.75rem;line-height:1rem;padding:12px 24px}}@media screen and (max-width:620px){#_default_{max-width:50%}#_default_ ._default_{font-size:.66rem;letter-spacing:1px;line-height:1rem;padding:10px 24px}}@media screen and (max-width:520px){#_default_ ._default_{font-size:.4rem;line-height:.875rem;padding:6px 12px 6px 24px;text-align:justify}}@media screen and (max-width:460px){#_default_{display:none}}@media screen and (max-width:46.1875em){.editor-header{display:none}.editor-header--first{display:block;width:100%}}</style></head><body id="preview">
+<h1><a id="_0"></a>神州项目架构总结</h1>
+<hr>
+<blockquote>
+<ul>
+<li><a href="#">业务线概述</a></li>
+<li><a href="#">项目结构</a></li>
+<li><a href="#">开发流程与规范</a></li>
+<li><a href="#">基础服务与中间件</a></li>
+<li><a href="#">个人思考</a></li>
+</ul>
+</blockquote>
+<hr>
+<h2><a id="_13"></a>业务线概述</h2>
+<h3><a id="httpwiki10101111compagesviewpageactionpageId173031091_16"></a><a href="http://wiki.10101111.com/pages/viewpage.action?pageId=173031091">神州专车</a></h3>
+<pre><code>采用“专业车辆，专业司机”的B2Cyunying提供模式，车辆和司机都由神州提供，定位于中高端群体，主打中高端商务用车服务市场
+</code></pre>
+<h3><a id="httpwiki10101111compagesviewpageactionpageId8359080_18"></a><a href="http://wiki.10101111.com/pages/viewpage.action?pageId=8359080">神州租车</a></h3>
+<pre><code>提供汽车租赁，多种类型（长租(年月)/短租(天)/分时租赁(小时)）
+</code></pre>
+<h3><a id="httpwiki10101111compagesviewpageactionpageId20841248_20"></a><a href="http://wiki.10101111.com/pages/viewpage.action?pageId=20841248">汽车金融</a></h3>
+<pre><code>为客户提供包括二手车金融、汽车抵押借款等在内的全面、专业、安全、快捷的汽车金融服务。用户有资金需求时，可至线下门店进行咨询，由专业人员对目标车辆进行免费检查及估值，验车通过即可办理相关手续。自由选择分期（3/12/24/36期）
+</code></pre>
+<h3><a id="httpwiki10101111compagesviewpageactionpageId5932734_22"></a><a href="http://wiki.10101111.com/pages/viewpage.action?pageId=5932734">汽车电商</a></h3>
+<pre><code>二手车和新车，线下地区建立门店的方式
+</code></pre>
+<h3><a id="httpwiki10101111compagesviewpageactionpageId169917216_24"></a><a href="http://wiki.10101111.com/pages/viewpage.action?pageId=169917216">神州车管家</a></h3>
+<pre><code>类似汽车生活和服务的一个社区，面向有车和无车一族（充电加油、道路救援、汽车维修、汽车保险、违章代办等服务）
+</code></pre>
+<hr>
+<h2><a id="_30"></a>项目结构</h2>
+<h3><a id="_32"></a>代码结构</h3>
+<pre><code>project
+└───filters（存放相应环境的配置文件 开发|测试|演示|预生产|生产）
+└───java
+│   └───base (系统内相关基类)
+│   └───systemName (根据系统名称决定，比如misc)
+│       └───moduleName (系统下的子模块名)
+│           └───controller (相关控制器)
+│           └───service （服务接口与实现）
+│               └───impl （服务实现）
+│           └───dao （数据操作接口与实现）
+│               └───impl （数据层实现）
+│           └───mqlistener (mq事件消费者)
+│           └───constant (枚举常量)
+│           └───pojo
+│           └───dto
+│           └───vo
+│   └───remote （rpc相关封装）
+│   
+└───resources 
+│       └───config.cache (mybatis缓存相关配置)
+│       └───spring (spring相关的配置文件)
+│       └───sql (存放所有的sql语句，sql前面有相关模块包名)
+│           └───moduleName (根据模块存放相应的mybatis的xml文件)
+│       │   xxx.properties (所有相关的配置，如下所示)
+└───webapp
+│       └───sql (按照日期或者功能存放执行所需脚本)
+│       └───static (存放相关静态页面与资源js、css等)
+│       └───WEB-INF (相关配置文件以及后台jsp页面)
+│           │   web.xml (web项目相关配置，引入prism拦截器，扫描其他配置文件等配置)
+│           │   healthCheck.jsp (用来检测应用状态) 
+└───test（单元测试，与java包下的模块包名对应）
+</code></pre>
+<h3><a id="_67"></a>配置文件</h3>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>文件名</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ftp.properties</td>
+<td>ftp 地址，端口，用户名密码及路径</td>
+</tr>
+<tr>
+<td>hbaseConfig.properties</td>
+<td>hbase相关配置</td>
+</tr>
+<tr>
+<td>log4j.properties</td>
+<td>日志级别输出配置</td>
+</tr>
+<tr>
+<td>redis.properties</td>
+<td>redis相关配置</td>
+</tr>
+<tr>
+<td>registerCenter.properties</td>
+<td>注册中心相关配置</td>
+</tr>
+<tr>
+<td>zkConfig.properties</td>
+<td>zk相关配置</td>
+</tr>
+<tr>
+<td>switch.properties</td>
+<td>数据库读写分离等相关分布式数据库配置</td>
+</tr>
+<tr>
+<td>startInit.properties</td>
+<td>启动相关配置，配置相关的启动初始化类</td>
+</tr>
+<tr>
+<td>metaConsumer.properties</td>
+<td>mq相关配置</td>
+</tr>
+</tbody>
+</table>
+<h3><a id="pomxml_83"></a>核心依赖包(pom.xml)</h3>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>包名</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>com.zuche.confcenter.<strong>ucarcfcenter-client</strong></td>
+<td>配置中心客户端引用包</td>
+</tr>
+<tr>
+<td>com.zuche.carbase.<strong>base-service</strong></td>
+<td>基础核心的封装（查询城市、导出excel、登录等）</td>
+</tr>
+<tr>
+<td>com.zuche.carbase.<strong>ucarbase</strong></td>
+<td>存放所有应用的接口传输实体</td>
+</tr>
+<tr>
+<td>com.ucar.ucarcommons.<strong>ucarcommons-lbs</strong></td>
+<td>地理操作封装</td>
+</tr>
+<tr>
+<td>com.ucar.ucarcommons.<strong>ucarcommons-hbase</strong></td>
+<td>hbase相关操作封装</td>
+</tr>
+<tr>
+<td>com.zuche.<strong>jmesa</strong></td>
+<td>后台web界面封装，分页之类的</td>
+</tr>
+<tr>
+<td>com.zuche.<strong>common-test-dependency</strong></td>
+<td>测试依赖</td>
+</tr>
+<tr>
+<td>com.ucar.ucarcommons.<strong>ucarcommons-rediscache</strong></td>
+<td>缓存，比如 @ValueRedisQuery</td>
+</tr>
+<tr>
+<td>com.zuche.flexibleq.<strong>flexibleq-client</strong></td>
+<td>mq客户端</td>
+</tr>
+<tr>
+<td>com.zuche.monitorplatform.<strong>monitor-client</strong></td>
+<td>监控相关客户端</td>
+</tr>
+</tbody>
+</table>
+<h3><a id="_97"></a>常用名词缩写</h3>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>包名</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ucar</td>
+<td>专车</td>
+</tr>
+<tr>
+<td>zuche</td>
+<td>租车</td>
+</tr>
+<tr>
+<td>fcar</td>
+<td>汽车金融</td>
+</tr>
+<tr>
+<td>mmc</td>
+<td>买买车</td>
+</tr>
+<tr>
+<td>ycc</td>
+<td>车管家</td>
+</tr>
+<tr>
+<td>crm</td>
+<td>会员关系管理</td>
+</tr>
+</tbody>
+</table>
+<h3><a id="_108"></a>整体架构</h3>
+<p><img src="https://raw.githubusercontent.com/rabel7/personal-lesson/master/2.png" alt="整体架构"></p>
+<hr>
+<h2><a id="_115"></a>开发流程与规范</h2>
+<h3><a id="_117"></a>开发类别</h3>
+<h4><a id="1_web_wap_119"></a>1. 外网web wap类</h4>
+<blockquote>
+<p>对外pc和移动端的页面</p>
+</blockquote>
+<h4><a id="2_openapi_mapi_wapi_121"></a>2. 接口层(openapi mapi wapi)</h4>
+<blockquote>
+<p>业务接口（只涉及数据的）是在内网，也可能对外，但是需要用户授权的一个概念来调用，并且需要验签（类似阿里支付宝接口，非对称加密，公钥+私钥）；另外通过swagger配合前端进行接口对接</p>
+</blockquote>
+<h4><a id="3__123"></a>3. 后台业务系统</h4>
+<blockquote>
+<p>后台页面+后台接口+页面相关操作（增删改查）</p>
+</blockquote>
+<h3><a id="_126"></a>专车模块</h3>
+<pre><code>问题：以上系统来源gitlab，但部分在后台系统中没有显示，部分只是单纯的提供接口服务吗（比如如下的订单系统在gitlab中没有看到）
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/rabel7/personal-lesson/master/system.png" alt="专车后台"></p>
+<h3><a id="_130"></a>整体流程</h3>
+<p><img src="https://raw.githubusercontent.com/rabel7/personal-lesson/master/allflow.png" alt="开发流程"></p>
+<h3><a id="_133"></a>开发流程</h3>
+<p><img src="https://raw.githubusercontent.com/rabel7/personal-lesson/master/developFlow.png" alt="开发流程"></p>
+<h4><a id="1__136"></a>1. 需求宣讲</h4>
+<blockquote>
+<p>需求宣讲在需求评审完成后，由项目经理组织产品进行宣讲。需求宣讲阶段开发人员工作如下：<br>
+<strong>1.</strong> 宣讲过程中开发人员需根据当前系统情况对业务需求进行评估，对系统性能有影响的处理方式、处理方式不合理的需求以及需求有歧义的部分应及时提出问题并讨论解决方案；<br>
+<strong>2.</strong> 开发人员发现需求中涉及其他团队任务时，应及时确认相关团队是否在场，及时沟通处理方案</p>
+</blockquote>
+<h4><a id="2__142"></a>2. 需求分析</h4>
+<blockquote>
+<p>需求宣讲完成后，开发负责人应对需求进行功能分解，评估各子功能的开发时间和对应开发人员，并完善JIRA信息。JIRA待完善信息如下：<br>
+<strong>1.</strong> 在功能项目中新建主开发JIRA，并填写如下信息：</p>
+</blockquote>
+<pre><code> - 主题为“需求统筹名称--项目名”，例如：XXXX功能--CRM
+ - 问题类型为“任务” 
+ - 根据需求分析结果填写“开始时间”、“结束时间”和“工作量”  
+ - 测试负责人为“luoyan01” 
+ - 其他字段信息根据实际情况填写 
+ - 功能JIRA创建完成后将该JIRA relates to 到对应的需求统筹JIRA中
+</code></pre>
+<blockquote>
+<p><strong>2.</strong> 在主开发JIRA下根据功能分解创建子任务，子任务需完善信息如下：</p>
+</blockquote>
+<pre><code> - 主题为“功能分解的名称”
+ - 经办人为实际开发人员  
+ - 根据需求分析结果填写“开始时间”、“结束时间”和“工作量” 
+ - 测试负责人为“luoyan01” 
+ - 其他字段信息根据实际情况填写
+</code></pre>
+<h4><a id="3__162"></a>3. 需求开发</h4>
+<blockquote>
+<ol>
+<li>开发人员根据各自分配的开发任务进行功能开发，开发过程中如果不能按照JIRA中评估的时间完成开发工作的，需要备注原因并及时调整结束时间。</li>
+<li>开发过程中如果涉及其他开发团队配合的工作应及时确认相关联系人并确认完成时间，如果不能按预期完成开发任务的需要在JIRA中备注原因并及时调整开始和结束时间。</li>
+<li>开发任务开始前需点击“开始进行”，开发完成后需点击“解决问题”，提测后需要点击“关闭问题”</li>
+<li>开发过程中涉及SQL脚本执行可参照“测试&amp;预生产环境SQL脚本执行流程”<a href="http://wiki.10101111.com/pages/viewpage.action?pageId=5932734">详细说明</a></li>
+</ol>
+</blockquote>
+<h4><a id="4__169"></a>4. 开发自测</h4>
+<blockquote>
+<p>开发人员需根据测试人员提供的测试用例，挑选自测用例进行自测，提交测试前必须保证自测通过。</p>
+</blockquote>
+<h4><a id="5__173"></a>5. 功能提测</h4>
+<blockquote>
+<p>提测任务需要relates to 需求统筹<a href="http://wiki.10101111.com/pages/viewpage.action?pageId=4592460">提测标准</a><br>
+<a href="http://wiki.10101111.com/pages/viewpage.action?pageId=20218409">提测流程</a></p>
+</blockquote>
+<h4><a id="6__178"></a>6. 预生产测试</h4>
+<blockquote>
+<p>测试环境测试通过后，在确认预生产环境无其他测试功能后可以进行预生产测试，预生产测试准备工作如下：</p>
+<ol>
+<li>开发负责人在预生产测试前需要按照上线要求进行准备工作</li>
+<li>开发负责人确认SQL脚本并提交DBA执行</li>
+<li>开发负责人将代码合并到trunk环境，待DBA脚本执行后通知测试部署</li>
+<li>开发负责人在预生产测试过程中需考虑上线注意事项，及时同相关人员联系沟通</li>
+</ol>
+</blockquote>
+<h4><a id="7__186"></a>7. 功能上线</h4>
+<blockquote>
+<p>上线任务需要relates to<br>
+需求统筹<a href="http://wiki.10101111.com/pages/viewpage.action?pageId=20218591">上线参见</a></p>
+</blockquote>
+<h4><a id="8__191"></a>8. 任务完成</h4>
+<blockquote>
+<p>任务完成后需要及时关闭相关JIRA任务</p>
+</blockquote>
+<h3><a id="_196"></a>编码规范</h3>
+<p>参考如下内容</p>
+<blockquote>
+<ol>
+<li><a href="http://wiki.10101111.com/pages/viewpage.action?pageId=173015343">代码规范</a></li>
+<li><a href="http://wiki.10101111.com/pages/viewpage.action?pageId=9274065">数据库规范</a></li>
+<li><a href="http://wiki.10101111.com/pages/viewpage.action?pageId=13729944">git使用规范</a></li>
+<li><a href="http://wiki.10101111.com/pages/viewpage.action?pageId=15533223">单元测试规范</a></li>
+<li><a href="http://wiki.10101111.com/display/ZXC/ucbase">urbase和dto规范</a></li>
+<li><a href="http://wiki.10101111.com/pages/viewpage.action?pageId=4593168">专车crm开发规范</a></li>
+</ol>
+</blockquote>
+<hr>
+<h2><a id="_208"></a>基础服务与中间件</h2>
+<p>下列服务平台用于支撑上层业务系统的平稳运行。<a href="http://wiki.10101111.com/pages/viewpage.action?pageId=56918297">查看汇总文档</a><br>
+可前往<a href="http://techplat.10101111.com/">神州架构平台</a>查看详细</p>
+<h3><a id="_confcenterhttpwiki10101111comdisplayarchitectureconfcenter_214"></a>配置中心 <a href="http://wiki.10101111.com/display/architecture/conf-center">(conf-center)</a></h3>
+<pre><code>为解决系统运行中配置数据实时的变化，提供数据订阅功能，统一配置(多应用统一管理)
+开源框架：disconf
+</code></pre>
+<h3><a id="_cachecloudhttpwiki10101111comdisplayarchitecturecachecloud_218"></a>存储中心 <a href="http://wiki.10101111.com/display/architecture/cache-cloud">(cache-cloud)</a></h3>
+<pre><code>提供对cache的资源分配、监控、警报、命令执行（中间件：redis、memcached）
+</code></pre>
+<h3><a id="_zkcloudhttpwiki10101111compagesviewpageactionpageId112820259_221"></a>注册中心 <a href="http://wiki.10101111.com/pages/viewpage.action?pageId=112820259">(zkcloud)</a></h3>
+<pre><code>ZooKeeper服务的统计、监控、报警管理以及自动化运维的平台（zkdoctor优化版的zkcloud）
+</code></pre>
+<p><strong>注册中心的应用场景</strong><br>
+常见框架：ZooKeeper、ected<br>
+提供统一命名服务，将机器信息，服务注册到注册中心中，由注册中心本身的高可用，一致性为其他应用提供集群支撑</p>
+<h3><a id="_prismhttpwiki10101111comdisplayarchitecturePrism_228"></a>服务治理平台 <a href="http://wiki.10101111.com/display/architecture/Prism">(prism)</a></h3>
+<pre><code>prism是对资源调用的控制组件，主要涵盖对服务的授权(限权)、限流、降级、路由、服务监控等功能(核心依赖于封装的自研服务化框架)
+服务化框架包含治理平台，并且完成rpc，弹性横向扩展，优雅停机、服务自动发现、负载均衡、集群容错，多协议（自定义协议、http）等
+</code></pre>
+<p><strong>神州服务化框架</strong><br>
+常见框架：dubbo|dubbox、spring cloud（熔断）<br>
+与微服务框架配套的平台，如果没有此功能则只是完成rpc部分(比如：hessian、thrift)，当服务变得越来越多的时候，需要有一个平台能管理这些服务<br>
+<strong>角色</strong>：注册中心(registry)、服务消费者（consumer）、服务提供者（provider）<br>
+服务存储方式(与dubbo的存储方式一致)<br>
+<strong>服务启动流程</strong></p>
+<ol>
+<li>注册中心启动（zookeeper）</li>
+<li>服务提供者启动将本机ip等信息注册到注册中心（startInit.properties），并与注册中心保持长连接（心跳检测服务状态）</li>
+<li>服务消费者启动从注册中心拉取对应的服务，并与注册中心保持长连接（订阅服务消息）</li>
+</ol>
+<h3><a id="startInitproperties_244"></a>startInit.properties</h3>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>属性</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dev</td>
+<td>开发阶段 sql 动态加载，修改ibatis的脚本后不用重启即可生效</td>
+</tr>
+<tr>
+<td>startRegisterCenter</td>
+<td>注册中心启动，注册服务</td>
+</tr>
+<tr>
+<td>remoteServiceStart</td>
+<td>启动加载远程服务</td>
+</tr>
+<tr>
+<td>startNettyServer</td>
+<td>启动Netty做服务，通过读取nettyConfig中的配置（包括端口，编码解码handler等）</td>
+</tr>
+<tr>
+<td>startCacheModelConfig</td>
+<td>ibatis自带的缓存机制需要手动配置缓存触发点，而且后期要不断的根据sql的添加去维护触发点，最重要的是在触发缓存清空后，此cacheModel下的所有缓存都将消失。鉴于其以上两个原因，开发了rhs缓存。rhs缓存主要是基于redis和habse实现的，在redis中存放需要缓存的信息，在hbase中根据配置信息自动记录缓存触发点，通过解析binlog获取某数据变化的行信息，到hbase中查询出与该行相关的缓存key，从而将缓存清空的触发点精确到行，大大降低缓存误杀率。<a href="http://wiki.10101111.com/pages/viewpage.action?pageId=4591421">参考资料</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>服务节点存储结构</strong></p>
+<p><img src="https://raw.githubusercontent.com/rabel7/personal-lesson/master/old.png" alt="服务节点存储"></p>
+<p><a href="http://wiki.10101111.com/pages/viewpage.action?pageId=26772157">资料参考来源</a></p>
+<h3><a id="Mq_mqcloudhttpwiki10101111compagesviewpageactionpageId56918297preview2F569182972F571474492FE69EB6E69E84E5AFBCE888AAE4B98BflexibleqE6B688E681AFE9989FE58897ppt_261"></a>Mq管理平台 <a href="http://wiki.10101111.com/pages/viewpage.action?pageId=56918297&amp;preview=%2F56918297%2F57147449%2F%E6%9E%B6%E6%9E%84%E5%AF%BC%E8%88%AA%E4%B9%8Bflexibleq-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97.ppt">(mqcloud)</a></h3>
+<pre><code>统一管理所有的消息队列，底层采用的是kafka（metaq？似乎在wiki中也看到metaq）
+</code></pre>
+<p><strong>mq的应用场景</strong><br>
+常见中间件：redis、rocketmq、rabbitmq、kafka，activemq等</p>
+<ol>
+<li>解耦</li>
+</ol>
+<blockquote>
+<p>降低业务系统之间的耦合，保证业务之间的逻辑不会混乱<br>
+例如：新用户注册发券场景<br>
+<strong>不使用mq的逻辑</strong>：用户在CRM注册，CRM调用营销系统的发券服务。当营销系统宕机后，CRM的会员注册功能将受到影响。<br>
+<strong>使用MQ的逻辑</strong>：用户在CRM注册，CRM发送会员注册的消息到MQ，完成会员的注册；营销系统订阅MQ，收到发券请求后，向指定的会员发券。营销系统宕机后，消息会保存在MQ中，等营销系统再次可用时，继续向用户发券。</p>
+</blockquote>
+<ol start="2">
+<li>异步处理</li>
+</ol>
+<blockquote>
+<p>将非同步的任务放到mq中，比如发送短信邮件，推送日志数据等</p>
+</blockquote>
+<ol start="3">
+<li>流量削峰</li>
+</ol>
+<blockquote>
+<p>比如秒杀的场景，利用队列进行排队，慢慢的进行消费，保证应用只处理可以应对的流量，其他的流量进行丢弃或者直接返回等操作，将流量尽可能的屏蔽在上层</p>
+</blockquote>
+<ol start="4">
+<li>数据同步</li>
+</ol>
+<blockquote>
+<p>基于事件通知的方式，通过mq的消息持久化以及消息的事务等机制（最终一致性）</p>
+</blockquote>
+<p><strong>代码例子</strong></p>
+<p><a href="http://wiki.10101111.com/pages/viewpage.action?pageId=173038942">资料参考来源</a></p>
+<h3><a id="_Datalinkhttpwiki10101111compagesviewpageactionpageId173029597_289"></a>数据交互平台 <a href="http://wiki.10101111.com/pages/viewpage.action?pageId=173029597">(Datalink)</a></h3>
+<pre><code>不同数据源(mysql/sqlserver/es/hdfs)之间的数据同步
+开源框架：otter
+</code></pre>
+<h3><a id="jobhttpwiki10101111compagesviewpageactionpageId36506317_293"></a>调度系统<a href="http://wiki.10101111.com/pages/viewpage.action?pageId=36506317">(job)</a></h3>
+<pre><code>基于spring quartz 和 服务框架的分布式的定时调度框架,当横向扩展的时候必要，后台统一对控制所有平台的定时任务，查看失败原因，重新触发，查看执行时间等
+开源框架：elastic-job
+</code></pre>
+<h3><a id="sddlhttpwiki10101111comdisplayarchitecture004_ucar_sddl_297"></a>分布式数据库管理平台<a href="http://wiki.10101111.com/display/architecture/004_ucar_sddl">(sddl)</a></h3>
+<pre><code>解决数据库性能瓶颈，实现水平扩展（分库、分表）数据库功能（底层基于mybatis）
+开源框架：shardingjdbc
+</code></pre>
+<h3><a id="zenushttpwiki10101111compagesviewpageactionpageId173029101_301"></a>监控平台<a href="http://wiki.10101111.com/pages/viewpage.action?pageId=173029101">(zenus)</a></h3>
+<pre><code>基于调用链分析的监控报警平台(基于大众点评的cat)
+由于soa后，应用之间的调用链错综复杂，如果哪一个服务出现问题（执行时间长）则需要有一个监控需要看到哪一个服务出现问题，从而进行追踪
+</code></pre>
+<h3><a id="jekenshttpwiki10101111compagesviewpageactionpageId169907690_305"></a>持续集成平台<a href="http://wiki.10101111.com/pages/viewpage.action?pageId=169907690">(jekens)</a></h3>
+<pre><code>负责应用的测试、构建、发布等一系列发布流程的自动化(docker)
+</code></pre>
+<h3><a id="testlinkhttpwiki10101111comdisplayUCARTECHINFOSUMMARYTestlink_308"></a>测试平台<a href="http://wiki.10101111.com/display/UCARTECHINFOSUMMARY/Testlink">(testlink)</a></h3>
+<pre><code>管理各个系统的测试用例以及测试流程与结果等
+</code></pre>
+<h3><a id="NetPlatformhttpwiki10101111compagesviewpageactionpageId15532514_311"></a>推送平台<a href="http://wiki.10101111.com/pages/viewpage.action?pageId=15532514">(NetPlatform)</a></h3>
+<pre><code>NetPlatform 计划设计成一个统一的手机端长连接对外平台,即提供一个手机对外消息长连接服务的一个控制平台,后期可以灵活的添加新的长连接业务节点并且通过netManager进行统一调度.保证在不影响已有节点功能的基础上添加新的功能,并进行sdk版本控制等
+</code></pre>
+<h3><a id="NetPlatformhttpwiki10101111compagesviewpageactionpageId13730579_314"></a>数据分析平台<a href="http://wiki.10101111.com/pages/viewpage.action?pageId=13730579">(NetPlatform)</a></h3>
+<pre><code>基于Spark的高速数据仓库，作为架构监控的数据仓库，也可以作为业务BI分析的数据仓库
+数据平台使用hive对业务数据和hbase数据等进行管理，维护元数据信息，并能通过Spark SQL框架使用类似SQL的查询语言对相关数据进行分析和查询。Hive在Spark SQL中的主要作用就是负责为Spark SQL提供表与字段等相关的元数据服务，以及提供表在HDFS中的实际存储位置信息。
+在数据平台中，主要通过三种方式为用户提供Spark相关功能的使用。
+（1）图形化Spark SQL查询
+（2）提交Jar作业以及python脚本
+（3）通过客户端执行Spark SQL查询以及Spark作业提交
+数据平台每天将来自关系型数据库以及hbase的业务数据同步至HDFS，然后通过Spark SQL为用户提供对这些业务数据的查询以及分析功能。同时也允许用户自定义相应的数据结构，然后利用Spark SQL存储和分析相关数据
+</code></pre>
+<h3><a id="httpwiki10101111compagesviewpageactionpageId110986086_323"></a><a href="http://wiki.10101111.com/pages/viewpage.action?pageId=110986086">神庙</a></h3>
+<pre><code>神庙项目负责对业务部分关注的销售、推广信息进行收集、处理、分析。以hadoop为处理平台，以多样图表为展示门面。提供分析后的数据，为业务部门提供决策数据。（建立用户画像并针对其营销等）
+</code></pre>
+<h3><a id="POSEIDONhttpwiki10101111compagesviewpageactionpageId109610745_326"></a>波塞冬平台<a href="http://wiki.10101111.com/pages/viewpage.action?pageId=109610745">(POSEIDON)</a></h3>
+<pre><code>波塞冬平台是一个用于管理，维护，监控的一套完整的实时计算管理平台。用户可以使用平台。提交 基于项目的实时任务。 也可以通过写CQL语句的方式提交任务。
+</code></pre>
+<h3><a id="hbasehttpwiki10101111compagesviewpageactionpageId109610745_331"></a><a href="http://wiki.10101111.com/pages/viewpage.action?pageId=109610745">hbase</a></h3>
+<p>使用场景：海量数据存储场景<br>
+使用案例（数据量大的场景）：</p>
+<ol>
+<li>架构组监控相关表</li>
+<li>UDFS存储附件（图片）</li>
+<li>存储司机点位信息</li>
+<li>ucarnetim存储聊天信息</li>
+<li>订单信息追踪</li>
+</ol>
+<p>中间件知识<br>
+<a href="http://wiki.10101111.com/pages/viewpage.action?pageId=59375774&amp;preview=/59375774/59473950/Spark%E4%BB%8B%E7%BB%8D%E4%BB%A5%E5%8F%8A%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0%E7%9A%84%E5%BA%94%E7%94%A8.pptx">spark的应用</a><br>
+<a href="http://wiki.10101111.com/display/architecture/Hadoop">hadoop</a><br>
+<a href="http://wiki.10101111.com/pages/viewpage.action?pageId=160727487">habase</a><br>
+<a href="http://wiki.10101111.com/display/architecture/Hive">hive</a><br>
+<a href="http://wiki.10101111.com/pages/viewpage.action?pageId=45286169">zookeeper</a><br>
+<a href="http://wiki.10101111.com/display/AILAB/000.k8s?preview=/134578841/146669703/Docker%E5%85%A5%E9%97%A8.pptx">docker</a><br>
+<a href="http://wiki.10101111.com/pages/viewpage.action?pageId=51806446">kubernate(k8s)</a><br>
+<a href="http://wiki.10101111.com/display/architecture/elasticsearch">elasticsearch</a><br>
+<a href="http://wiki.10101111.com/pages/viewpage.action?pageId=26772196&amp;preview=/26772196/28082424/%E5%88%86%E4%BA%AB%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%20ElasticSearch%E3%80%8B-%E4%BD%95%E6%8C%AF%E6%9D%BE.pptx">深入浅出elasticsearch</a><br>
+<a href="http://wiki.10101111.com/pages/viewpage.action?pageId=33948568">分享文档页面</a><br>
+<a href="http://wiki.10101111.com/display/architecture/framework">核心framework</a></p>
+<hr>
+<h2><a id="_354"></a>个人思考</h2>
+<ol>
+<li>
+<p>神州服务化框架的优雅性<br>
+<a href="http://wiki.10101111.com/pages/viewpage.action?pageId=126747442">新版本似乎有了更好的方案，基本等同于dubbo的方式</a></p>
+<p>(1) 每个应用需要写一个类似remote的封装来调用服务（AbstractRemoteService）<br>
+(2) 服务的引用采用写死接口名的方式</p>
+</li>
+<li>
+<p>应用强依赖tomcat<br>
+(1) 版本升级不方便<br>
+(2) session存储依赖于tomcat（改写tomcat的实现，存储放到redis/memcached），采用spring的方式是否更灵活<br>
+(3) 有组件依赖于tomcat</p>
+</li>
+<li>
+<p>读写分离如何实现的，如何决定选择是读源还是写源？</p>
+</li>
+<li>
+<p>dto、vo、pojo是否有对应的规范文档来规范合适使用（个人理解为vo是针对界面使用的对象、dto为接口之间传输的对象、pojo与数据库表结构对应）</p>
+</li>
+<li>
+<p>我们系统中es的使用场景在哪儿（全文索引），买买车是否应该有一个搜索车的功能（<a href="http://wiki.10101111.com/pages/viewpage.action?pageId=89882731">城市等联动使用</a>）</p>
+</li>
+<li>
+<p>如何对接口使用缓存?</p>
+</li>
+</ol>
+<pre><code>    @CacheResult(domain = RedisConstant.GET_SPECIFICVALUE,key={&quot;#rightId&quot;,&quot;#specificKey&quot;})
+    public String getSpecificValue(Integer rightId,String specificKey){
+        Map&lt;String,Object&gt; paramMap=new HashMap&lt;String, Object&gt;();
+        paramMap.put(&quot;rightId&quot;,rightId);
+        paramMap.put(&quot;specificKey&quot;,specificKey);
+        return memberRightDao.getSpecificValue(paramMap);
+    }
+</code></pre>
+<ol start="7">
+<li>主从数据源，分库分表是如何扩展的，分库分表规则的定义在哪里做的（<a href="http://wiki.10101111.com/pages/viewpage.action?pageId=155648437">采用后台配置的方式</a>）</li>
+<li>hbase除了用来存放日志，好像还有存放部分的业务表，看到命名规则一般是按月存放的，什么情况下使用hbase进行存储（<a href="http://wiki.10101111.com/pages/viewpage.action?pageId=35521079">hbase使用说明</a>）</li>
+</ol>
+<pre><code>@HBaseTable(tableName = &quot;t_scd_member_mileage_info&quot;, familyName = &quot;member_mileage_info&quot;)
+public class MemberMileageInfoHTable extends CommonHBaseTable {
+
+    @HBaseIgnore
+    private String rowKey;
+    /**
+     * 创建时间 :hbaseSplit 根据该配置进行分表
+     */
+    @HBaseSplit
+    @HBaseColumn(value = &quot;createTime&quot;, format = &quot;EEE MMM dd HH:mm:ss z yyyy&quot;, locale = LocaleEnum.UK)
+    private Date createTime;
+    ...
+}
+</code></pre>
+<ol start="9">
+<li>看到服务化框架的负载均衡策略只有一个random？是否有问题</li>
+<li>pom应用核心库的依赖有点乱，有的exclude部分依赖库（版本冲突）</li>
+<li>https使用认证的证书比较好，在chrome浏览器体验不好</li>
+<li>需要熟悉业务板块，以及各个业务线的作用，有一个基础的认识</li>
+<li>项目代码中的日志打印很多没有使用logger.isDebugEnabled()</li>
+<li>前后台（web和后台系统）数据库是否是分离的</li>
+<li>单元测试代码有一部分是system.out.println,Assert.assertTrue(Equal)是否更合理些</li>
+<li>服务如何使用缓存</li>
+</ol>
+<pre><code>public @interface ValueRedisQuery {
+
+    int nameSpace();//redis 命名空间
+    String groupName();//redis 组名
+    String prefix();// key 前缀
+    String connector() default &quot;_&quot;;//连接符
+    int ttl() default 10;//数据在redis中存放时间，默认10分钟
+    TimeUnit timeUnit() default TimeUnit.MINUTES;
+    Class&lt;? extends ValueQueryExpression&lt;?,?&gt;&gt; cacheExpression();
+}
+ 
+ @ValueRedisQuery(groupName=PromotionRedisConstant.GroupName,nameSpace=PromotionRedisConstant.Item_Namespace,prefix=PromotionRedisConstant.Item_Key_Prefix,cacheExpression=PromotionItemListQueryExpression.class)
+    public List&lt;PromotionPositionItem&gt; getPromotionItemList(long detailId) {
+        return promotionPostionDao.getPromotionItemList(detailId);
+    }
+</code></pre>
+<ol start="17">
+<li>misc-&gt;webapp-&gt;prism-&gt;base 下的这段json做什么用的，似乎是对外暴露接口使用</li>
+</ol>
+<pre><code>[
+  {
+    &quot;name&quot;: &quot;ucarmisc.airportAcceptCoDriver.ucarmapi.V1.acceptCoDriverConfig&quot;,
+    &quot;beanId&quot;: &quot;airPortAcceptCoDriverRemoteService&quot;,
+    &quot;descipt&quot;: &quot;接送机是否接受优驾司机&quot;,
+    &quot;connectionTimeOut&quot;: -1,
+    &quot;readTimeOut&quot;: -1,
+    &quot;needResult&quot;: 1,
+    &quot;methodName&quot;: &quot;acceptCoDriverConfig&quot;
+  }
+]
+</code></pre>
+<ol start="18">
+<li>如何分完成分布式事务的（自定义扩展和修改了DataSourceTransactionManager，DataSourceTransactionObject，ShardingConnection）</li>
+</ol>
+<pre><code>&lt;bean id=&quot;transactionManagerCarIs&quot;
+          class=&quot;com.zuche.framework.extend.spring.sddl.DataSourceTransactionManager&quot;&gt;
+        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSourceCarIs&quot; /&gt;
+&lt;/bean&gt;
+</code></pre>
+<pre><code>
+public class DataSourceTransactionManager extends AbstractPlatformTransactionManager
+        implements ResourceTransactionManager, InitializingBean {
+
+    protected Object doGetTransaction() {
+        DataSourceTransactionObject txObject = new DataSourceTransactionObject();
+        txObject.setSavepointAllowed(isNestedTransactionAllowed());
+        ConnectionHolder conHolder =
+            (ConnectionHolder) TransactionSynchronizationManager.getResource(this.dataSource);
+        txObject.setConnectionHolder(conHolder, false);
+        return txObject;
+    }
+    
+    //开始事务
+    protected void doBegin(Object transaction, TransactionDefinition definition) {
+        DataSourceTransactionObject txObject = (DataSourceTransactionObject) transaction;
+        Connection con = null;
+
+        try {
+            if (txObject.getConnectionHolder() == null ||
+                    txObject.getConnectionHolder().isSynchronizedWithTransaction()) {
+                if(this.dataSource instanceof SddlLogicCluster){
+                    
+                    Map&lt;Integer, SddlDataSource&gt; map = ((SddlLogicCluster) this.dataSource).getSddlClusters().get(0).getMapDataSource();
+                    Set&lt;Map.Entry&lt;Integer, SddlDataSource&gt;&gt; set = map.entrySet();
+                    Iterator&lt;Map.Entry&lt;Integer, SddlDataSource&gt;&gt; ite = set.iterator() ;
+                    //初始化 sharding connection
+                    ShardingConnection newCon = new ShardingConnection();
+                    while(ite.hasNext()){
+                        Map.Entry&lt;Integer, SddlDataSource&gt; entry = ite.next();
+                        Integer realDsIndex = entry.getKey(); // 库索引
+                        Connection connection = entry.getValue().getDs().getConnection();
+                        newCon.addShardingDs(connection, realDsIndex);
+                    }
+                    txObject.setConnectionHolder(new ConnectionHolder(newCon) , true);
+                    
+                }else{
+                    Connection newCon = this.dataSource.getConnection();
+                    if (logger.isDebugEnabled()) {
+                        logger.debug(&quot;Acquired Connection [&quot; + newCon + &quot;] for JDBC transaction&quot;);
+                    }
+                    txObject.setConnectionHolder(new ConnectionHolder(newCon), true);
+                }
+                
+                
+            }
+
+            txObject.getConnectionHolder().setSynchronizedWithTransaction(true);
+            con = txObject.getConnectionHolder().getConnection();
+
+            Integer previousIsolationLevel = DataSourceUtils.prepareConnectionForTransaction(con, definition);
+            txObject.setPreviousIsolationLevel(previousIsolationLevel);
+
+            // Switch to manual commit if necessary. This is very expensive in some JDBC drivers,
+            // so we don't want to do it unnecessarily (for example if we've explicitly
+            // configured the connection pool to set it already).
+            if (con.getAutoCommit()) {
+                txObject.setMustRestoreAutoCommit(true);
+                if (logger.isDebugEnabled()) {
+                    logger.debug(&quot;Switching JDBC Connection [&quot; + con + &quot;] to manual commit&quot;);
+                }
+                con.setAutoCommit(false);
+            }
+            txObject.getConnectionHolder().setTransactionActive(true);
+
+            int timeout = determineTimeout(definition);
+            if (timeout != TransactionDefinition.TIMEOUT_DEFAULT) {
+                txObject.getConnectionHolder().setTimeoutInSeconds(timeout);
+            }
+
+            // Bind the session holder to the thread.
+            if (txObject.isNewConnectionHolder()) {
+                TransactionSynchronizationManager.bindResource(getDataSource(), txObject.getConnectionHolder());
+            }
+        }
+
+        catch (Exception ex) {
+
+            ConnDiscard.handleConnection(ex, con);
+
+            DataSourceUtils.releaseConnection(con, this.dataSource);
+            throw new CannotCreateTransactionException(&quot;Could not open JDBC Connection for transaction&quot;, ex);
+        }
+    }
+    
+    private static class DataSourceTransactionObject extends JdbcTransactionObjectSupport {
+
+        private boolean newConnectionHolder;
+
+        private boolean mustRestoreAutoCommit;
+
+        public void setConnectionHolder(ConnectionHolder connectionHolder, boolean newConnectionHolder) {
+            super.setConnectionHolder(connectionHolder);
+            this.newConnectionHolder = newConnectionHolder;
+        }
+
+        public boolean isNewConnectionHolder() {
+            return this.newConnectionHolder;
+        }
+
+        public boolean hasTransaction() {
+            return (getConnectionHolder() != null &amp;&amp; getConnectionHolder().isTransactionActive());
+        }
+
+        public void setMustRestoreAutoCommit(boolean mustRestoreAutoCommit) {
+            this.mustRestoreAutoCommit = mustRestoreAutoCommit;
+        }
+
+        public boolean isMustRestoreAutoCommit() {
+            return this.mustRestoreAutoCommit;
+        }
+
+        public void setRollbackOnly() {
+            getConnectionHolder().setRollbackOnly();
+        }
+
+        public boolean isRollbackOnly() {
+            return getConnectionHolder().isRollbackOnly();
+        }
+    }
+}
+
+</code></pre>
+<pre><code>
+/**
+ *  sharding connection
+ *  事物context下适配分库的所有connection
+ * &lt;br/&gt; Created on 2015-12-4 下午12:15:16
+ * @author  李洪波(<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0a62682466634a70627f69626f24696567">[email&#160;protected]</a>)
+ * @since 4.1
+ */
+public class ShardingConnection implements Connection {
+    public void commit() throws SQLException {
+        Set&lt;Map.Entry&lt;Integer , Connection&gt;&gt; set = shardingMap.entrySet();
+        Iterator&lt;Map.Entry&lt;Integer , Connection&gt;&gt; ite = set.iterator();
+        while(ite.hasNext()){
+            Map.Entry&lt;Integer , Connection&gt; entry = ite.next();
+            Connection con = entry.getValue();
+            if(con != null){
+                con.commit();
+            }
+        }
+
+    }
+    
+    public void rollback() throws SQLException {
+        Set&lt;Map.Entry&lt;Integer , Connection&gt;&gt; set = shardingMap.entrySet();
+        Iterator&lt;Map.Entry&lt;Integer , Connection&gt;&gt; ite = set.iterator();
+        while(ite.hasNext()){
+            Map.Entry&lt;Integer , Connection&gt; entry = ite.next();
+            Connection con = entry.getValue();
+            if(con != null){
+                con.rollback();
+            }
+        }
+
+    }
+}
+</code></pre>
+<hr>
+<p>作者 [<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b3cbdad2ddd49dd7d2daf3c6d0d2c1daddd09dd0dcde">[email&#160;protected]</a>]<br>
+2018 年 04月 27日</p>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/d07b1474/cloudflare-static/email-decode.min.js"></script></body></html>

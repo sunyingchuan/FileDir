@@ -1,0 +1,8 @@
+Ctrl+d 复制当前行
+Ctrl+y 删除当前行
+alt+enter 导包
+shift+F6 改类名
+ctrl+/ 单行 ctrl+shift+/多行
+alt+insert  setter and getter
+
+
