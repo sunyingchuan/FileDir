@@ -9,3 +9,9 @@ http://gitlab.10101111.com:8888/
 动态代理
 论文：评价部分
 idea maven ibatis
+
+shiro 
+git分支
+shiro
+RPC
+跑现有项目
