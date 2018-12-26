@@ -1,0 +1,273 @@
+创建表检查约束
+CREATE TABLE products
+( product_no integer,
+name text,
+price numeric CHECK (price > 0) );
+
+创建非空约束
+CREATE TABLE products
+( product_no integer NOT NULL,
+name text NOT NULL,
+price numeric );
+
+创建唯一约束
+CREATE TABLE products
+( product_no integer UNIQUE,
+name text,
+price numeric)
+DISTRIBUTED BY (product_no); 使用hash-distributed 必须为hash分布
+
+主键约束，必须是hash分布
+CREATE TABLE products
+( product_no integer PRIMARY KEY,name text,
+price numeric)
+DISTRIBUTED BY (product_no);
+
+创建append表
+CREATE TABLE bar (a int, b text)
+WITH (appendonly=true)
+DISTRIBUTED BY (a);
+
+创建列表
+CREATE TABLE bar (a int, b text)
+WITH (appendonly=true, rientation=column)
+DISTRIBUTED BY (a);
+
+创建压缩表 压缩级别从1到9，quicklz只有默认1的压缩级别
+CREATE TABLE foo (a int, b text)
+WITH (appendonly=true, compresstype=zlib,
+compresslevel=5);
+zlib，quicklz，RLE_TYPE 三种压缩格式
+9级     1级     4级
+
+查看压缩的函数
+SELECT get_ao_distribution('lineitem_comp');
+
+数据块的大小从8192-2097152 但是必须以8k的倍数增长  eg：
+C1 char ENCODING (compresstype=quicklz, blocksize=65536)
+COLUMN C1 ENCODING (compresstype=quicklz, blocksize=65536)
+DEFAULT COLUMN ENCODING (compresstype=quicklz)
+
+列压缩表
+CREATE TABLE T1 (c1 int ENCODING (compresstype=zlib),
+c2 char ENCODING (compresstype=quicklz, blocksize=65536),
+c3 char)
+WITH (appendonly=true, rientation=column);
+
+三种压缩列
+CREATE TABLE T2 (c1 int ENCODING (compresstype=zlib),
+c2 char ENCODING (compresstype=quicklz, blocksize=65536),
+c3 char,
+COLUMN c3 ENCODING (RLE_TYPE)
+)
+WITH (appendonly=true, rientation=column)
+
+压缩分区
+CEATE TABLE T3 (c1 int ENCODING (compresstype=zlib),
+c2 char ENCODING (compresstype=quicklz, blocksize=65536),
+c3 char,
+COLUMN c3 ENCODING (compresstype=RLE_TYPE)
+)
+WITH (appendonly=true, rientation=column)
+PARTITION BY RANGE (c3) (START ('1900-01-01'::DATE)
+END ('2100-12-31'::DATE),
+COLUMN c3 ENCODING (zlib));
+
+创建表的时候，可以更改默认值
+CREATE TABLE T4 (c1 int ENCODING (compresstype=zlib),
+c2 char,
+c3 char,
+c4 smallint ENCODING (compresstype=none),
+DEFAULT COLUMN ENCODING (compresstype=quicklz,
+blocksize=65536),
+COLUMN c3 ENCODING (compresstype=RLE_TYPE)
+)
+WITH (appendonly=true, rientation=column);
+
+多重分区形式
+CREATE TABLE T5 (
+i int,
+j int,
+k date,
+DEFAULT COLUMN ENCODING (blocksize=1048576)
+)
+WITH (appendonly = true, rientation=column)
+PARTITION BY RANGE(k)
+SUBPARTITION BY LIST(j)
+SUBPARTITION TEMPLATE
+(PARTITION one_two VALUES(1, 2)
+COLUMN j ENCODING (compresstype=RLE_TYPE),
+PARTITION rest VALUES(3, 4, 5, 6, 7, 8, 9, …)
+COLUMN j ENCODING (compresstype=zlib, compresslevel=9),
+DEFAULT COLUMN ENCODING (compresstype=quicklz)
+)
+(
+START (date '2011-01-01') END (date '2011-12-31')
+EVERY (interval '1 day')
+);
+
+定义数据类型
+CREATE TYPE comptype (
+internallength = 4,
+input = comptype_in,
+output = comptype_out,
+alignment = int4,
+default = 123,
+passedbyvalue,
+compresstype="quicklz",
+blocksize=65536,
+compresslevel=1
+);
+调用数据类型创建表
+CREATE TABLE t2 (c1 comptype)
+WITH (APPENDONLY=true, RIENTATION=column);
+
+修改表属性
+ALTER TABLE address ALTER COLUMN street SET NOT NULL;
+ALTER TABLE sales SET DISTRIBUTED BY (customer_id);
+ALTER TABLE sales SET DISTRIBUTED RANDOMLY;
+ALTER TABLE sales SET WITH (REORGANIZE=TRUE);
+
+表存储，压缩，排列方式在创建表的时候已经定义完毕，不能更改，如需更改，需重新定义表结构
+CREATE TABLE sales2 (LIKE sales)
+WITH (appendonly=true, compresstype=quicklz, compresslevel=1, rientation=column);
+INSERT INTO sales2 SELECT * FROM sales;
+DROP TABLE sales;
+ALTER TABLE sales2 RENAME TO sales;
+GRANT ALL PRIVILEGES ON sales TO admin;
+GRANT SELECT ON sales TO guest;
+
+增加表列
+ALTER TABLE T1
+ADD COLUMN c4 int DEFAULT 0
+ENCODING (COMPRESSTYPE=zlib);
+
+分区表的创建
+1.自动日期分区
+CREATE TABLE sales (id int, date date, amt decimal(10,2))
+DISTRIBUTED BY (id)
+PARTITION BY RANGE (date)
+( START (date '2008-01-01') INCLUSIVE
+END (date '2009-01-01') EXCLUSIVE
+EVERY (INTERVAL '1 day') );
+
+创建按月分区
+CREATE TABLE sales (id int, date date, amt decimal(10,2))
+DISTRIBUTED BY (id)
+PARTITION BY RANGE (date)
+( PARTITION Jan08 START (date '2008-01-01') INCLUSIVE ,
+PARTITION Feb08 START (date '2008-02-01') INCLUSIVE ,
+PARTITION Mar08 START (date '2008-03-01') INCLUSIVE ,
+PARTITION Apr08 START (date '2008-04-01') INCLUSIVE ,
+PARTITION May08 START (date '2008-05-01') INCLUSIVE ,
+PARTITION Jun08 START (date '2008-06-01') INCLUSIVE ,
+PARTITION Jul08 START (date '2008-07-01') INCLUSIVE ,
+PARTITION Aug08 START (date '2008-08-01') INCLUSIVE ,
+PARTITION Sep08 START (date '2008-09-01') INCLUSIVE ,
+PARTITION Oct08 START (date '2008-10-01') INCLUSIVE ,
+PARTITION Nov08 START (date '2008-11-01') INCLUSIVE ,
+PARTITION Dec08 START (date '2008-12-01') INCLUSIVE
+END (date '2009-01-01') EXCLUSIVE );
+
+按年分区
+CREATE TABLE rank (id int, rank int, year int, gender char(1), count int)
+DISTRIBUTED BY (id)
+PARTITION BY RANGE (year)
+( START (2001) END (2008) EVERY (1),
+DEFAULT PARTITION extra );
+
+列表分区
+CREATE TABLE rank (id int, rank int, year int, gender char(1), count int )
+DISTRIBUTED BY (id)
+PARTITION BY LIST (gender)
+( PARTITION girls VALUES ('F'),
+PARTITION boys VALUES ('M'),
+DEFAULT PARTITION other );
+
+范围，列表，时间分区
+CREATE TABLE sales (trans_id int, date date, amount decimal(9,2), region text)
+DISTRIBUTED BY (trans_id)
+PARTITION BY RANGE (date)
+SUBPARTITION BY LIST (region)
+SUBPARTITION TEMPLATE
+( SUBPARTITION usa VALUES ('usa'),
+SUBPARTITION asia VALUES ('asia'),
+SUBPARTITION europe VALUES ('europe'),
+DEFAULT SUBPARTITION other_regions)
+START (date '2008-01-01') INCLUSIVE
+END (date '2009-01-01') EXCLUSIVE
+EVERY (INTERVAL '1 month'),
+DEFAULT PARTITION outlying_dates );
+
+年，月，时间，列表分区
+CREATE TABLE sales (id int, year int, month int, day int, region text)
+DISTRIBUTED BY (id)
+PARTITION BY RANGE (year)
+SUBPARTITION BY RANGE (month)
+SUBPARTITION TEMPLATE (
+START (1) END (13) EVERY (1),
+DEFAULT SUBPARTITION other_months )
+SUBPARTITION BY LIST (region)
+SUBPARTITION TEMPLATE (
+SUBPARTITION usa VALUES ('usa'),
+SUBPARTITION europe VALUES ('europe'),
+SUBPARTITION asia VALUES ('asia'),
+DEFAULT SUBPARTITION other_regions )
+( START (2002) END (2010) EVERY (1),
+DEFAULT PARTITION outlying_years );
+
+查看表的执行计划
+EXPLAIN SELECT * FROM sales WHERE date='01-07-08' AND region='usa';
+
+增加表分区
+ALTER TABLE sales ADD PARTITION
+START (date '2009-02-01') INCLUSIVE
+END (date '2009-03-01') EXCLUSIVE;
+
+增加子分区
+ALTER TABLE sales ADD PARTITION
+START (date '2009-02-01') INCLUSIVE
+END (date '2009-03-01') EXCLUSIVE
+( SUBPARTITION usa VALUES ('usa'),
+SUBPARTITION asia VALUES ('asia'),
+SUBPARTITION europe VALUES ('europe') );
+
+修改表名字
+ALTER TABLE sales RENAME TO globalsales;
+
+修改分区表名
+ALTER TABLE sales RENAME PARTITION FOR ('2008-01-01') TO jan08;
+
+增加默认分区
+ALTER TABLE sales ADD DEFAULT PARTITION other;
+
+删除分区
+ALTER TABLE sales DROP PARTITION FOR (RANK(1));
+
+删除表分区数据
+ALTER TABLE sales TRUNCATE PARTITION FOR (RANK(1));
+
+分裂分区
+ALTER TABLE sales SPLIT PARTITION FOR ('2008-01-01')
+AT ('2008-01-16')
+INTO (PARTITION jan081to15, PARTITION jan0816to31);
+
+分裂默认分区
+ALTER TABLE sales SPLIT DEFAULT PARTITION
+ART ('2009-01-01') INCLUSIVE
+END ('2009-02-01') EXCLUSIVE
+INTO (PARTITION jan09, default partition);
+
+创建序列
+CREATE SEQUENCE myserial START 101;
+INSERT INTO vendors VALUES (nextval('myserial'), 'acme');
+
+设置序列
+SELECT setval('myserial', 201);
+ALTER SEQUENCE myserial RESTART WITH 105;
+
+查看当前序列，greenplum不存在currval，lastval的函数
+SELECT * FROM myserial;
+
+删除序列
+DROP SEQUENCE myserial;

@@ -10,8 +10,28 @@ http://gitlab.10101111.com:8888/
 论文：评价部分
 idea maven ibatis
 
-shiro 
+
 git分支
 shiro
 RPC
 跑现有项目
+
+2018-12-18
+	9：30-11点，1703开个会，过一下ppt
+	下午看shiro、代码
+	晚上篮球
+
+
+CREATE TABLE `t_sys_user_role` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` bigint(20) NOT NULL COMMENT '用户主键',
+  `role_id` bigint(20) NOT NULL COMMENT '角色主键',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `modify_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `create_emp` bigint(20) unsigned DEFAULT NULL COMMENT '创建用户',
+  `modify_emp` bigint(20) unsigned DEFAULT NULL COMMENT '修改用户',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`),
+  KEY `idx_user_role_id` (`role_id`),
+  KEY `idx_user_role_user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1051 DEFAULT CHARSET=utf8 COMMENT='系统用户角色关系表';
